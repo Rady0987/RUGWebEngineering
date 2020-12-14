@@ -19,7 +19,8 @@
             if($this->server['REDIRECT_HTTP_CONTENT_TYPE'] === "text/csv") {
                 //TODO: implement csv
             } else {
-                echo json_encode($callResponse->getData());
+                header('Content-Type: application/json');
+                echo json_encode($callResponse->getData(), JSON_UNESCAPED_UNICODE);
             }
         }
 
