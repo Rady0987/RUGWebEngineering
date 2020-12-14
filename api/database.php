@@ -1,9 +1,10 @@
 <?php
     class Database {
         private const HOST = "localhost";
-        private const DATABASE = "imdbapi";
-        private const USERNAME = "imdbapi";
-        private const PASSWORD = "imdbapi";
+        private const DATABASE = "imdbapi"; // here everyone can change the name of their db
+        private const USERNAME = "imdbapi"; // their username
+        private const PASSWORD = "imdbapi"; // their password. IMPORTANT: don't forget to return them to
+                                            // the initial values!!!
 
         private $pdo;
 
