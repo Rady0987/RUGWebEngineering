@@ -11,23 +11,62 @@
             $this->pdo = new PDO("mysql:host=".self::HOST.";dbname=".self::DATABASE.";charset=utf8", self::USERNAME, self::PASSWORD);
         }
 
-        public function query($sql, $args) {
-            $q = $this->pdo->prepare($sql);
-            $q->execute($args);
+        public function execute($query) {
+            $q = $this->pdo->prepare($query->getQuery());
+            $q->execute($query->getArguments());
             return $q->fetchAll(PDO::FETCH_ASSOC);
         }
+    }
 
-        public function addRelationsToMovieArray($data) {
-            foreach($data as &$row) {
-                $id = array($row['id']);
-                $actors = $this->query("SELECT name FROM actors WHERE id IN (SELECT actor FROM movies_actors WHERE movie=?)", $id);
-                $directors = $this->query("SELECT name FROM directors WHERE id IN (SELECT director FROM movies_directors WHERE movie=?)", $id);
-                $genres = $this->query("SELECT name FROM genres WHERE id IN (SELECT genre FROM movies_genres WHERE movie=?)", $id);
-                $countries = $this->query("SELECT name FROM countries WHERE id IN (SELECT country FROM movies_countries WHERE movie=?)", $id);
-                $languages = $this->query("SELECT name FROM languages WHERE id IN (SELECT language FROM movies_languages WHERE movie=?)", $id);
-                $row = $row + array('actors' => $actors, 'directors' => $directors, 'genres' => $genres, 'countries' => $countries, 'languages' => $languages);
+    class Query {
+        private $baseQuery;
+        private $limitQuery;
+        private $orderQuery;
+        private $constraints;
+        private $arguments;
+
+        public function __construct() {
+            $this->baseQuery = "";
+            $this->limitQuery = "";
+            $this->orderQuery = "";
+            $this->constraints = array();
+            $this->arguments = array();
+        }
+
+        public function setBaseQuery($baseQuery) {
+            $this->baseQuery = $baseQuery;
+        }
+
+        private function constraintsQuery() {
+            if(empty($this->constraints)) {
+                return "";
+            } else {
+                return " WHERE " . implode(' AND ', $this->constraints);
             }
-            return $data;
+        }
+
+        public function getQuery() {
+            return $this->baseQuery . $this->constraintsQuery() . $this->orderQuery . $this->limitQuery;
+        }
+
+        public function getArguments() {
+            return $this->arguments;
+        }
+
+        public function addConstraint($constraint) {
+            array_push($this->constraints, $constraint);
+        }
+
+        public function addArgument($argument) {
+            array_push($this->arguments, $argument);
+        }
+
+        public function setLimit($limit) {
+            $this->limitQuery = " LIMIT " . $limit;
+        }
+
+        public function setOrder($column, $asc) {
+            $this->orderQuery = " ORDER BY " . $column . ($asc ? " ASC" : " DESC");
         }
     }
 ?>

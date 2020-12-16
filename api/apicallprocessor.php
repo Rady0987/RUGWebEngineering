@@ -16,12 +16,28 @@
 
         private function makeResponse($callResponse) {
             http_response_code($callResponse->getCode());
-            if($this->server['REDIRECT_HTTP_CONTENT_TYPE'] === "text/csv") {
-                //TODO: implement csv
+            if(floor($callResponse->getCode() / 100) == 2) {
+                if(isset($this->server['HTTP_ACCEPT']) && explode(',', explode(';', $this->server['HTTP_ACCEPT'])[0])[0] === "text/csv") {
+                    header('Content-Type: text/csv');
+                    echo $this->arrayToCSV($callResponse->getData());
+                } else {
+                    header('Content-Type: application/json');
+                    echo json_encode($callResponse->getData(), JSON_UNESCAPED_UNICODE);
+                }
             } else {
-                header('Content-Type: application/json');
-                echo json_encode($callResponse->getData(), JSON_UNESCAPED_UNICODE);
+                header('Content-Type: text/plain');
+                echo $callResponse->getData()['error'];
             }
+        }
+
+        private function arrayToCSV($array) {
+            $result = "";
+            $keys = array_keys($array[0]);
+            $result .= implode(',', $keys) . "\n";
+            foreach($array as $row) {
+                $result .= "\"" . implode('","', $row) . "\"\n";
+            }
+            return $result;
         }
 
         public function run() {
