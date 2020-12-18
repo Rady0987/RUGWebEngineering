@@ -7,6 +7,39 @@
     $database = new Database();
     $callManager = new CallManager($_SERVER, $_REQUEST);
 
+    $callManager->addCallProcessor(new CallProcessor("GET", "torrents", function($request) {
+        global $database;
+        if($request['API_VAR'] === "") {
+            return new CallResponse(400, array("error"=>"No imdb_url specified"));
+        } else {
+            $query = new Query();
+            $query->setBaseQuery("SELECT imdb_url, title FROM movies");
+            $query->addConstraint("imdb_url = ?");
+            $query->addArgument("https://www.imdb.com/title/".$request['API_VAR']."/");
+            
+            $data = $database->execute($query);
+            if(empty($data)) {
+                return new CallResponse(404, array("error"=>"Movie not found"));
+            }
+            $yts_api_call = json_decode(file_get_contents("https://yts.mx/api/v2/list_movies.json?query_term=" . urlencode($data[0]['title'])), true);
+            $result = array();
+            if($yts_api_call['data']['movie_count'] > 0) {
+                foreach($yts_api_call['data']['movies'][0]['torrents'] as $torrent) {
+                    $row = array();
+                    $row['quality'] = $torrent['quality'];
+                    $row['url'] = $torrent['url'];
+                    $row['magnet_url'] = "magnet:?xt=urn:btih:" . $torrent['hash'] . "&dn=" . urlencode($data[0]['title']);
+                    $trackers = array("http://track.one:1234/announce", "udp://track.two:80", "udp://open.demonii.com:1337/announce", "udp://tracker.openbittorrent.com:80", "udp://tracker.coppersurfer.tk:6969", "udp://glotorrents.pw:6969/announce", "udp://tracker.opentrackr.org:1337/announce", "udp://torrent.gresille.org:80/announce", "udp://p4p.arenabg.com:1337", "udp://tracker.leechers-paradise.org:6969");
+                    foreach($trackers as $tracker) {
+                        $row['magnet_url'] .= "&tr=$tracker";
+                    }
+                    array_push($result, $row);
+                }
+            }
+
+            return new CallResponse(200, $result);
+        }
+    }));
     $callManager->addCallProcessor(new CallProcessor("GET", "genres", function($request) {
         global $database;
         $query = new Query();
@@ -236,7 +269,7 @@
         } else {
             $query = new Query();
             $query->setBaseQuery("SELECT id FROM actors");
-            $query->addConstraint("lower(name) = (?)");
+            $query->addConstraint("lower(name) = lower(?)");
             $query->addArgument($request['API_VAR']);
             $data = $database->execute($query);
             if(empty($data)) {
