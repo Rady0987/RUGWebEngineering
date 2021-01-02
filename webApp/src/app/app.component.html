@@ -5,34 +5,26 @@
             nzBreakpoint="md"
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
-      </a>
+    <div class="sidebar-logo" *ngIf="!isCollapsed">
+      <span class = "sidebar-text" >Web Engineering <br> Team #049 </span>
+    </div>
+    <div *ngIf="isCollapsed" class = "sidebar-icon">
+      <a routerLink = "home"><i nz-icon nzType="home" nzTheme="outline" nz- style="font-size: 32px;" ></i></a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
+      <li nz-menu-item>
+        <a routerLink="actors">
+          <i nz-icon nzType="user" nzTheme="outline"></i>
+          <span>Actors</span>
+        </a>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
+      <li nz-menu-item>
+        <a routerLink="movies">
+          <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+          <span>Movies</span>
+        </a>
       </li>
-    </ul>
+    </ul>  
   </nz-sider>
   <nz-layout>
     <nz-header>
