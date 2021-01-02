@@ -16,13 +16,13 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 import { ActorComponent } from './pages/actor-component/actor-component.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MoviesComponent } from './pages/movies/movies.component';
+import { StatisticComponent } from './pages/statistic/statistic.component';
 
 
 registerLocaleData(en);
@@ -33,6 +33,7 @@ registerLocaleData(en);
     ActorComponent,
     HomeComponent,
     MoviesComponent,
+    StatisticComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +47,8 @@ registerLocaleData(en);
     NzTableModule,
     NzInputModule,
     NzButtonModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzCheckboxModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -1,16 +1,22 @@
+Don't forget to put sorting buttons
+
+
+<div class = "find-area">
+  <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+</div>  
 
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
-  <nz-table>
+  <nz-table class = "movies-table">
     <thead>
       <tr>
         <th>Image</th>
         <th>
           <div>
             <ng-container >
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu">Title</button>
-              <nz-dropdown-menu #menu="nzDropdownMenu">
+              <button nz-button nz-dropdown [nzDropdownMenu]="menu1">Title</button>
+              <nz-dropdown-menu #menu1="nzDropdownMenu"> 
                 <div class = "title-area">
-                  <input nz-input placeholder="Basic usage"/>
+                  <input nz-input placeholder="Find by Title"/>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
@@ -19,16 +25,18 @@
         <th>Description</th>
         <th>Run Time</th>
         <th>Rating</th>
-        <th><div>
-          <ng-container >
-            <button nz-button nz-dropdown [nzDropdownMenu]="menu">Year</button>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <div class = "title-area">
-                <input nz-input placeholder="Basic usage"/>
-              </div>
-            </nz-dropdown-menu>
-          </ng-container>
-        </div></th>
+        <th>
+          <div>
+            <ng-container >
+              <button nz-button nz-dropdown [nzDropdownMenu]="menu2">Year</button>
+              <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <div class = "title-area">
+                  <input nz-input placeholder="Find by year"/>
+                </div>
+              </nz-dropdown-menu>
+            </ng-container>
+          </div>
+        </th>
         <th>User Rating</th>
         <th>Votes</th>
         <th>Metascore</th>
@@ -38,26 +46,28 @@
         <th>
           <div>
             <ng-container >
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu">Actors</button>
-              <nz-dropdown-menu #menu="nzDropdownMenu">
+              <button nz-button nz-dropdown [nzDropdownMenu]="menu3">Actors</button>
+              <nz-dropdown-menu #menu3="nzDropdownMenu">
                 <div class = "title-area">
-                  <input nz-input placeholder="Basic usage"/>
+                  <input nz-input placeholder="Find by Actors"/>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
           </div>
         </th>
         <th>Tagline</th>
-        <th><div>
-          <ng-container >
-            <button nz-button nz-dropdown [nzDropdownMenu]="menu">Directors</button>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <div class = "title-area">
-                <input nz-input placeholder="Basic usage"/>
-              </div>
-            </nz-dropdown-menu>
-          </ng-container>
-        </div></th>
+        <th>
+          <div>
+            <ng-container >
+              <button nz-button nz-dropdown [nzDropdownMenu]="menu4">Directors</button>
+              <nz-dropdown-menu #menu4="nzDropdownMenu">
+                <div class = "title-area">
+                  <input nz-input placeholder="Find by Directors"/>
+                </div>
+              </nz-dropdown-menu>
+            </ng-container>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>
