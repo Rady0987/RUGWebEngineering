@@ -2,7 +2,7 @@ Don't forget to put sorting buttons
 
 
 <div class = "find-area">
-  <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+  <button  nz-button nzType="primary" nzSearch><i nz-icon nzType="search" (click)="getText(title.value, year.value, actor.value, director.value)"></i></button>
 </div>  
 
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
@@ -16,7 +16,7 @@ Don't forget to put sorting buttons
               <button nz-button nz-dropdown [nzDropdownMenu]="menu1">Title</button>
               <nz-dropdown-menu #menu1="nzDropdownMenu"> 
                 <div class = "title-area">
-                  <input nz-input placeholder="Find by Title"/>
+                  <input nz-input placeholder="Find by Title" type="text" #title/>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
@@ -31,7 +31,7 @@ Don't forget to put sorting buttons
               <button nz-button nz-dropdown [nzDropdownMenu]="menu2">Year</button>
               <nz-dropdown-menu #menu2="nzDropdownMenu">
                 <div class = "title-area">
-                  <input nz-input placeholder="Find by year"/>
+                  <input nz-input placeholder="Find by year" type="text" #year>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
@@ -49,7 +49,7 @@ Don't forget to put sorting buttons
               <button nz-button nz-dropdown [nzDropdownMenu]="menu3">Actors</button>
               <nz-dropdown-menu #menu3="nzDropdownMenu">
                 <div class = "title-area">
-                  <input nz-input placeholder="Find by Actors"/>
+                  <input nz-input placeholder="Find by Actors" type="text" #actor/>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
@@ -62,7 +62,7 @@ Don't forget to put sorting buttons
               <button nz-button nz-dropdown [nzDropdownMenu]="menu4">Directors</button>
               <nz-dropdown-menu #menu4="nzDropdownMenu">
                 <div class = "title-area">
-                  <input nz-input placeholder="Find by Directors"/>
+                  <input nz-input placeholder="Find by Directors" type="text" #director/>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
