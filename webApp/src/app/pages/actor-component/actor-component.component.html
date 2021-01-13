@@ -1,7 +1,10 @@
 
 <div class = "checkbox-area">
-  <label nz-checkbox >Actors</label>
-  <label nz-checkbox >Directors</label>
+  <!-- <label nz-checkbox >Actors</label>
+  <label nz-checkbox >Directors</label> -->
+  <span class="actors">Actors</span>
+  <nz-switch [(ngModel)]="switchValue"></nz-switch>
+  <span class="directors">Directors</span>
 </div> 
 <!-- [(ngModel)]="checked" -->
 
@@ -10,8 +13,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Movies</th>
-      <th>Genres</th>
     </tr>
   </thead>
   <tbody>

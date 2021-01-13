@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./actor-component.component.css']
 })
 export class ActorComponent implements OnInit {
-
+  switchValue = false;
   constructor() { }
 
   ngOnInit(): void {
