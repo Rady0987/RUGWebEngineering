@@ -8,8 +8,8 @@ export class TaskService {
 
   constructor(private webReqService: WebRequestService) { }
 
-  createList(title: string) {
-      //web request for list creation 
-    return this.webReqService.post('lists', { title });
+  movieRequest(parameters: string) {
+    
+    return this.webReqService.get(parameters);
   }
 }

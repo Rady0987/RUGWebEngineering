@@ -7,10 +7,11 @@ import { TaskService } from 'src/app/task.service';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  titleVal = "";
-  actorVal = "";
-  directorVal = "";
+  titleVal = "?title=";
+  actorVal = "?actor=";
+  directorVal = "?director=";
   yearVal = 0;
+  request = "";
 
   constructor(private TaskService: TaskService) { }
 
@@ -19,12 +20,18 @@ export class MoviesComponent implements OnInit {
 
   getText(title : any, year : any, actor : any, director: any) {
     // Need to continue
-    console.warn(title)
-    alert(title)
-    this.titleVal = title;
+    this.titleVal += title;
     this.yearVal = year;
-    this.actorVal = actor;
-    this.directorVal = director;
+    this.actorVal += actor;
+    this.directorVal += director;
+    console.log('title:' + this.titleVal);
+    console.log('year:' + this.yearVal);
+    console.log('actor:' + this.actorVal);
+    console.log('director:' + this.directorVal);
+    this.request = `/movies${(this.titleVal != "?title=") ? this.titleVal : ""}`;
+    //this.request += `${(this.actorVal != "&?actor=") ? this.titleVal : ""}`;
+    console.log('request:' + this.request);
+    //this.TaskService.movieRequest()
   }
   
 }
