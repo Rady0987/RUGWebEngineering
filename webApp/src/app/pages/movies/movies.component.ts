@@ -25,7 +25,7 @@ export class MoviesComponent implements OnInit {
       this.request = this.andOperator(this.request, year);
       this.request += `${(year != 0) ? ("year=" + year) : ""}`;
     }
-    this.TaskService.movieRequest(this.request);
+    let jsonMess = this.TaskService.dataRequest(this.request);
     this.request = "movies/";
   }
 

@@ -3,7 +3,7 @@
   <!-- <label nz-checkbox >Actors</label>
   <label nz-checkbox >Directors</label> -->
   <span class="actors">Actors</span>
-  <nz-switch [(ngModel)]="switchValue"></nz-switch>
+  <nz-switch (ngModelChange)="switch(switchValue)" [(ngModel)]="switchValue"></nz-switch>
   <span class="directors">Directors</span>
 </div> 
 <!-- [(ngModel)]="checked" -->

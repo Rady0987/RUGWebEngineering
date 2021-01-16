@@ -8,7 +8,7 @@ export class TaskService {
 
   constructor(private webReqService: WebRequestService) { }
 
-  movieRequest(parameters: string) {
+  dataRequest(parameters: string) {
     return this.webReqService.get(parameters);
   }
 }
