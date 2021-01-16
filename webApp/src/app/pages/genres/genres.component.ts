@@ -15,9 +15,12 @@ export class GenresComponent implements OnInit {
   }
 
   getName(name : string) {
-    //API call get/api/genres/ has only actor parameter (no director)
-    this.request += "?actor=" + name;
-    let jsonMess = this.TaskService.dataRequest(this.request);
+    if(name != "") {
+      /*check if the parameters names (actor_name, director_name) are like 
+      in the endpoints doc */
+      this.request += "?actor=" + name + "&director=" + name;
+      let jsonMess = this.TaskService.dataRequest(this.request);
+    }
     this.request = "genres/";
   }
 }

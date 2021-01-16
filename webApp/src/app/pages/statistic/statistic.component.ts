@@ -15,9 +15,12 @@ export class StatisticComponent implements OnInit {
   }
 
   getName(name : string) {
-    //API call get/api/actorstatistics/ has only actor parameter (no director)
-    this.request += "?actor_name=" + name;
-    let jsonMess = this.TaskService.dataRequest(this.request);
+    if(name != "") {
+        /*check if the parameters names (actor_name, director_name) are like 
+        in the endpoints doc */
+      this.request += "?actor_name=" + name + "&director_name=" + name;
+      let jsonMess = this.TaskService.dataRequest(this.request);
+    }
     this.request = "actorstatistics/";
   }
 }
