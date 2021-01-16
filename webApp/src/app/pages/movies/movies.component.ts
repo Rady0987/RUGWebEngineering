@@ -7,31 +7,32 @@ import { TaskService } from 'src/app/task.service';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  titleVal = "?title=";
-  actorVal = "?actor=";
-  directorVal = "?director=";
-  yearVal = 0;
-  request = "";
+  request = "movies/";
 
   constructor(private TaskService: TaskService) { }
 
   ngOnInit(): void {
   }
 
-  getText(title : any, year : any, actor : any, director: any) {
-    // Need to continue
-    this.titleVal += title;
-    this.yearVal = year;
-    this.actorVal += actor;
-    this.directorVal += director;
-    console.log('title:' + this.titleVal);
-    console.log('year:' + this.yearVal);
-    console.log('actor:' + this.actorVal);
-    console.log('director:' + this.directorVal);
-    this.request = `/movies${(this.titleVal != "?title=") ? this.titleVal : ""}`;
-    //this.request += `${(this.actorVal != "&?actor=") ? this.titleVal : ""}`;
-    console.log('request:' + this.request);
-    //this.TaskService.movieRequest()
+  getMoviesParam(title : string, year : number, actor : string, director: string) {
+    if(actor != "" || title != "" || director != "" || year != 0) {
+      this.request += "?";
+      this.request += `${(title != "") ? ("title=" + title) : ""}`;
+      this.request = this.andOperator(this.request, actor);
+      this.request += `${(actor != "") ? ("actor=" + actor) : ""}`;
+      this.request = this.andOperator(this.request, director);
+      this.request += `${(director != "") ? ("director=" + director) : ""}`;
+      this.request = this.andOperator(this.request, year);
+      this.request += `${(year != 0) ? ("year=" + year) : ""}`;
+    }
+    this.TaskService.movieRequest(this.request);
+    this.request = "movies/";
+  }
+
+  andOperator(request : string, param : any) {
+    if(request != "movies/?" && (param != "" || param != 0))
+      request += "&";
+    return request;
   }
   
 }

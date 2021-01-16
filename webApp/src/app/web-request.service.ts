@@ -9,11 +9,11 @@ export class WebRequestService {
   readonly API_URL;
   
   constructor(private http: HttpClient) {
-    //localhost port ???
-    this.API_URL = 'http://localhost:4000/api'
+    this.API_URL = 'http://movies.max.ug/api'
   }
 
   get(uri: string) {
+    console.log(`${this.API_URL}/${uri}`);
     return this.http.get(`${this.API_URL}/${uri}`);
   }
 
