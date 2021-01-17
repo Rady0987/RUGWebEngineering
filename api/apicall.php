@@ -49,6 +49,11 @@
             $query->addArgument($request['actor']);
         }
 
+		if(isset($request['director'])) {
+            $query->addConstraint("id IN (SELECT genre FROM movies_genres WHERE movie IN (SELECT movie FROM movies_directors WHERE director IN (SELECT id FROM directors WHERE lower(name) = lower(?))))");
+            $query->addArgument($request['director']);
+        }
+
         $data = $database->execute($query);
 
         if(empty($data)) {
