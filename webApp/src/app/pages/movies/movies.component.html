@@ -5,7 +5,7 @@ Don't forget to put sorting buttons
   <button  nz-button nzType="primary" nzSearch><i nz-icon nzType="search" (click)="getMoviesParam(title.value, year.value, actor.value, director.value)"></i></button>
 </div> 
 
-<div *ngFor = "let item of items">{{item.title}} </div>
+ <!-- <div *ngFor = "let item of items">{{item.title}} </div> -->
 
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
   <nz-table class = "movies-table">
@@ -18,7 +18,7 @@ Don't forget to put sorting buttons
               <button nz-button nz-dropdown [nzDropdownMenu]="menu1">Title</button>
               <nz-dropdown-menu #menu1="nzDropdownMenu"> 
                 <div class = "title-area">
-                  <input nz-input placeholder="Find by Title" type="text" #title/>
+                  <input nz-input placeholder="Find by Title" type="text" #title/>    
                 </div>
               </nz-dropdown-menu>
             </ng-container>
@@ -73,15 +73,22 @@ Don't forget to put sorting buttons
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let data of basicTable.data">
-        <td>{{ data.name }}</td>
-        <td>{{ data.age }}</td>
-        <td>{{ data.address }}</td>
-        <td>
-          <a>Action 一 {{ data.name }}</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a>Delete</a>
-        </td>
-      </tr> -->
+      <tr *ngFor = "let item of items">
+        <td>{{ item.rating }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.runtime }}</td>
+        <td>{{ item.rating}}</td>
+        <td>{{ item.year }}</td>
+        <td>{{ item.users_rating }}</td>
+        <td>{{ item.votes }}</td>
+        <td>{{ item.metascore }}</td>
+        <td>{{ item.countries }}</td>
+        <td>{{ item.languages }}</td>
+        <td>{{ item.genres }}</td>
+        <td>{{ item.actors }}</td>
+        <td>{{ item.tagline }}</td>
+        <td>{{ item.directors }}</td>
+      </tr>
     </tbody>
   </nz-table>

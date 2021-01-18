@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import {HttpClient} from '@angular/common/http';
+import {MOVIE} from './movie';
 
 @Component({
   selector: 'app-movies',
@@ -18,16 +19,18 @@ export class MoviesComponent implements OnInit {
   }
 
   getMoviesParam(title : string, year : any, actor : string, director: string) {
+    this.items = [];
     if(actor != "" || title != "" || director != "" || year != 0) {
       //this.request += "?";
       this.request += `${(title != "") ? ("&title=" + title) : ""}`;
       this.request = this.andOperator(this.request, actor);
-      this.request += `${(actor != "") ? ("actor=" + actor) : ""}`;
+      this.request += `${(actor != "") ? ("&actor=" + actor) : ""}`;
       this.request = this.andOperator(this.request, director);
-      this.request += `${(director != "") ? ("director=" + director) : ""}`;
+      this.request += `${(director != "") ? ("&director=" + director) : ""}`;
       this.request = this.andOperator(this.request, year);
-      this.request += `${(year != 0) ? ("year=" + year) : ""}`;
+      this.request += `${(year != 0) ? ("&year=" + year) : ""}`;
     }
+    console.log(this.request);
     this.TaskService.dataRequest(this.request).toPromise().then(data => {
       console.log(data);
 
