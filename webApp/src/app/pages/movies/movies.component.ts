@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-movies',
@@ -8,13 +9,24 @@ import { TaskService } from 'src/app/task.service';
 })
 export class MoviesComponent implements OnInit {
   request = "movies/";
+  test = "http://movies.max.ug/api/movies/?year=2020";
+  test2 = "https://jsonplaceholder.typicode.com/todos/1"
+  items : string[] = [];
 
-  constructor(private TaskService: TaskService) { }
+  constructor(private TaskService: TaskService, private http : HttpClient) { 
+    this.http.get(this.test).toPromise().then(data => {
+      console.log(data);
+
+      for (let key in data) 
+        if (data.hasOwnProperty(key))
+          this.items.push(data[key]);
+    });
+  }
 
   ngOnInit(): void {
   }
 
-  getMoviesParam(title : string, year : number, actor : string, director: string) {
+  getMoviesParam(title : string, year : any, actor : string, director: string) {
     if(actor != "" || title != "" || director != "" || year != 0) {
       this.request += "?";
       this.request += `${(title != "") ? ("title=" + title) : ""}`;

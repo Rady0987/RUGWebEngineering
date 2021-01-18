@@ -3,7 +3,9 @@ Don't forget to put sorting buttons
 
 <div class = "find-area">
   <button  nz-button nzType="primary" nzSearch><i nz-icon nzType="search" (click)="getMoviesParam(title.value, year.value, actor.value, director.value)"></i></button>
-</div>  
+</div> 
+
+<div *ngFor = "let item of items">{{item}} </div>
 
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
   <nz-table class = "movies-table">
@@ -31,7 +33,7 @@ Don't forget to put sorting buttons
               <button nz-button nz-dropdown [nzDropdownMenu]="menu2">Year</button>
               <nz-dropdown-menu #menu2="nzDropdownMenu">
                 <div class = "title-area">
-                  <input nz-input placeholder="Find by year" type="text" #year>
+                  <input nz-input placeholder="Find by year" type="number" #year>
                 </div>
               </nz-dropdown-menu>
             </ng-container>
