@@ -11,7 +11,7 @@ export class MoviesComponent implements OnInit {
   request = "movies/";
   test = "http://movies.max.ug/api/movies/?year=2020";
   test2 = "https://jsonplaceholder.typicode.com/todos/1"
-  items : string[] = [];
+  items : any[] = [];
 
   constructor(private TaskService: TaskService, private http : HttpClient) { 
     this.http.get(this.test).toPromise().then(data => {
