@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  request = "movies/?details=&limit=50";
+  request = "movies/?details=&limit=5";
   items : any[] = [];
 
   constructor(private TaskService: TaskService, private http : HttpClient) { 
@@ -28,13 +28,18 @@ export class MoviesComponent implements OnInit {
       this.request = this.andOperator(this.request, year);
       this.request += `${(year != 0) ? ("year=" + year) : ""}`;
     }
-    let jsonMess = this.TaskService.dataRequest(this.request);
-    console.log(jsonMess);
-    this.request = "movies/?details=&limit=50";
+    this.TaskService.dataRequest(this.request).toPromise().then(data => {
+      console.log(data);
+
+      for (let key in data) 
+         if (data.hasOwnProperty(key))
+           this.items.push(data[key]);
+    });
+    this.request = "movies/?details=&limit=5";
   }
 
   andOperator(request : string, param : any) {
-    if(request != "movies/?details=&limit=50" && (param != "" || param != 0))
+    if(request != "movies/?details=&limit=5" && (param != "" || param != 0))
       request += "&";
     return request;
   }
