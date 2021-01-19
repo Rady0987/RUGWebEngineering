@@ -1,3 +1,3 @@
-export interface ACTORS {
+export interface ACTORSDIR {
     name : string;
 }

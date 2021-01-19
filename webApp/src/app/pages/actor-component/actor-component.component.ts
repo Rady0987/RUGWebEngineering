@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
-import { ACTORS } from './actors';
-import { DIRECTORS } from './directors';
+import { ACTORSDIR } from './actors';
 
 @Component({
   selector: 'app-actor-component',
@@ -11,25 +10,23 @@ import { DIRECTORS } from './directors';
 export class ActorComponent implements OnInit {
   switchValue = false;
   request = "actors/"
-  actors : ACTORS[] = [];
-  directors : DIRECTORS[] = [];
+  items : ACTORSDIR[] = [];
   
   constructor(private TaskService: TaskService) { }
 
   ngOnInit(): void {
     this.request = "actors/";
-    this.TaskService.actorDataRequest(this.request).subscribe(data => this.actors = data);
+    this.TaskService.actordirDataRequest(this.request).subscribe(data => this.items = data);
   }
 
   switch(value : boolean) {
-    this.actors = [];
-    this.directors = [];
+    this.items = [];
     if(value) {
       this.request = "actors/";
-      this.TaskService.actorDataRequest(this.request).subscribe(data => this.actors = data);
+      this.TaskService.actordirDataRequest(this.request).subscribe(data => this.items = data);
     } else {
       this.request = "directors/";
-      this.TaskService.directorDataRequest(this.request).subscribe(data => this.directors = data);
+      this.TaskService.actordirDataRequest(this.request).subscribe(data => this.items = data);
     }
     this.request = "actors/"
   }
