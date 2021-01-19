@@ -10,7 +10,8 @@ import { GENRES } from './genres';
 })
 export class GenresComponent implements OnInit {
   switchValue = false;
-  request = "genres/";
+  request = "genres/?actor=";
+  stringsaver =""
   arr: GENRES[] = []
   
   constructor(private TaskService: TaskService, private http: HttpClient) { 
@@ -22,26 +23,29 @@ export class GenresComponent implements OnInit {
     this.arr = [];
     if(switchValue) {
       this.request = "genres/?actor=";
-      this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr = data);
+      console.log(this.request)
     } else {
-      this.request = "directors/?director=";
-      this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr = data);
+      this.request = "genres/?director=";
+      console.log(this.request)
     }
-    this.request = "genres/"
   }
   
   getName(name : string) {
     this.arr = []
-    this.request = "genres/"
     if(name != "") {
       /*check if the parameters names (actor_name, director_name) are like 
       in the endpoints doc*/
-      this.request += "?director="+name;
+      this.request += name;
     }
     this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr= data);
     console.log(this.request);
     console.log(this.arr);
-    
+    if(this.request.includes("director")){
+      this.request = "genres/?director="
+    }
+    if(this.request.includes("actor")){
+      this.request = "genres/?actor="
+    }
   }
 
   
