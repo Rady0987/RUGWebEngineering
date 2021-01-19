@@ -2,16 +2,16 @@ export interface MOVIE {
     image : string;
     title : string;
     description : string;
-    runtime : any;
-    rating : any;
-    year : any;
-    user_rating : any;
-    votes : any;
-    metascore : any;
+    runtime : string;
+    rating : string;
+    year : string;
+    user_rating : string;
+    votes : string;
+    metascore : string;
     countries : string;
     languages : string;
     genre : string;
     actor : string;
-    tagline : any;
+    tagline : string;
     director : string;
 }

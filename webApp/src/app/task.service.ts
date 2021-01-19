@@ -11,4 +11,8 @@ export class TaskService {
   dataRequest(parameters: string) {
     return this.webReqService.get(parameters);
   }
+
+  movieDataRequest(parameters: string) {
+    return this.webReqService.getMovies(parameters);
+  }
 }

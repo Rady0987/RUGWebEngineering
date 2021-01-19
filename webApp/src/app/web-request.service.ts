@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { MOVIE } from './pages/movies/movie';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,9 @@ export class WebRequestService {
 
   delete(uri: string) {
     return this.http.delete(`${this.API_URL}/${uri}`);
+  }
+
+  getMovies(uri : string) {
+    return this.http.get<MOVIE[]>(`${this.API_URL}/${uri}`);
   }
 }

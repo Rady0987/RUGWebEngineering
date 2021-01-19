@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import {HttpClient} from '@angular/common/http';
 import {MOVIE} from './movie';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-movies',
@@ -9,8 +10,8 @@ import {MOVIE} from './movie';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  request = "movies/?details=&limit=5";
-  items : any[] = [];
+  request = "movies/?details=&limit=50";
+  items : MOVIE[] = [];
 
   constructor(private TaskService: TaskService, private http : HttpClient) { 
   }
@@ -19,6 +20,7 @@ export class MoviesComponent implements OnInit {
   }
 
   getMoviesParam(title : string, year : any, actor : string, director: string) {
+    this.request = "movies/?details=&limit=50";
     this.items = [];
     if(actor != "" || title != "" || director != "" || year != 0) {
       this.request += `${(title != "") ? ("&title=" + title) : ""}`;
@@ -30,18 +32,11 @@ export class MoviesComponent implements OnInit {
       this.request += `${(year != 0) ? ("&year=" + year) : ""}`;
     }
     console.log(this.request);
-    this.TaskService.dataRequest(this.request).toPromise().then(data => {
-      console.log(data);
-
-      for (let key in data) 
-         if (data.hasOwnProperty(key))
-           this.items.push(data[key]);
-    });
-    this.request = "movies/?details=&limit=5";
+    this.TaskService.movieDataRequest(this.request).subscribe(data => this.items = data);
   }
 
   andOperator(request : string, param : any) {
-    if(request != "movies/?details=&limit=5" && (param != "" || param != 0))
+    if(request != "movies/?details=&limit=50" && (param != "" || param != 0))
       request += "&";
     return request;
   }
