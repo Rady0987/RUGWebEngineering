@@ -16,8 +16,10 @@ interface Statistics {
 export class StatisticComponent implements OnInit {
   request = "actorstatistics/"
   items : Statistics;
+  loading : boolean;
   constructor(private TaskService: TaskService) {
     this.items = {} as Statistics;
+    this.loading = true;
   }
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class StatisticComponent implements OnInit {
         in the endpoints doc */
       this.request += name;
       this.TaskService.dataRequest(this.request).subscribe(data  => this.items = <Statistics> data);
+      this.loading = false;
     }
     this.request = "actorstatistics/";
   }

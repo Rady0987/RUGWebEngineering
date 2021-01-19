@@ -7,7 +7,7 @@
   </ng-template>
 </div>
 
-<nz-table>
+<nz-table  #basicTable [nzData]="['']" [nzFrontPagination] = "false" [nzLoading] = loading>
   <thead>
     <tr>
       <th>Mean</th>
@@ -16,10 +16,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr >
+    <tr>
       <td>{{ items.mean_popularity }}</td>
       <td>{{ items.median_popularity }}</td>
-      <td>{{ items.standard_deviation_popularity }}</td>
+      <td >{{ items.standard_deviation_popularity }}</td>
     </tr>
   </tbody>
 </nz-table>
