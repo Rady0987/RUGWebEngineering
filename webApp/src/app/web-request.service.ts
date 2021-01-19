@@ -32,13 +32,6 @@ export class WebRequestService {
     return this.http.delete(`${this.API_URL}/${uri}`);
   }
 
-  getMovies(uri : string) {
-    return this.http.get<MOVIE[]>(`${this.API_URL}/${uri}`);
-  }
-
-  getActorDir(uri : string) {
-    return this.http.get<ACTORSDIR[]>(`${this.API_URL}/${uri}`);
-  }
   getGenre(uri : string) {
     return this.http.get<GENRES[]>(`${this.API_URL}/${uri}`);
   }

@@ -7,26 +7,29 @@ import { ACTORSDIR } from './actors';
   templateUrl: './actor-component.component.html',
   styleUrls: ['./actor-component.component.css']
 })
+
 export class ActorComponent implements OnInit {
   switchValue = false;
   request = "actors/"
-  items : ACTORSDIR[] = [];
+  items : ACTORSDIR[];
   
-  constructor(private TaskService: TaskService) { }
+  constructor(private TaskService: TaskService) {
+    this.items = [];
+   }
 
   ngOnInit(): void {
     this.request = "actors/";
-    this.TaskService.actordirDataRequest(this.request).subscribe(data => this.items = data);
+    this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
   }
 
   switch(value : boolean) {
     this.items = [];
     if(value) {
       this.request = "actors/";
-      this.TaskService.actordirDataRequest(this.request).subscribe(data => this.items = data);
+      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
     } else {
       this.request = "directors/";
-      this.TaskService.actordirDataRequest(this.request).subscribe(data => this.items = data);
+      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
     }
     this.request = "actors/"
   }
