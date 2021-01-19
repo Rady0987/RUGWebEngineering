@@ -8,7 +8,13 @@ Don't forget to put sorting buttons
  <!-- <div *ngFor = "let item of items">{{item.title}} </div> -->
 
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
-  <nz-table class = "movies-table">
+  <nz-table class = "movies-table" 
+    [nzData] = "items" 
+    [nzLoading] = "items.length == 0" 
+    [nzPageSize] = 10 [nzShowPagination] = "true" 
+    [nzShowSizeChanger] = true 
+    [nzTotal] = 50
+    >
     <thead>
       <tr>
         <th>Image</th>

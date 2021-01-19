@@ -1,12 +1,14 @@
+.top {
+  float: center;
+}
 .search-area {
+  float: right;
   width: 50%;
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 2%;
 }
 
 .checkbox-area {
-  margin-left: 10%;
-
+  margin-bottom: 2%;
+  float: left;
 }
 

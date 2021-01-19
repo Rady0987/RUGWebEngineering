@@ -10,12 +10,12 @@ import {MOVIE} from './movie';
 export class MoviesComponent implements OnInit {
   request = "movies/?limit=50";
   items : MOVIE[];
-
   constructor(private TaskService: TaskService) { 
     this.items = [];
   }
 
   ngOnInit(): void {
+    this.getMoviesParam("", "");
   }
 
   getMoviesParam(title : string, year : string) {
@@ -27,7 +27,7 @@ export class MoviesComponent implements OnInit {
       this.request += `${(year != "") ? ("year=" + year) : ""}`;
     }
     console.log(this.request);
-    this.TaskService.dataRequest(this.request).subscribe(data => this.items = <MOVIE[]> data);
+    console.log(this.TaskService.dataRequest(this.request).subscribe(data => this.items = <MOVIE[]> data));
   }
 
   andOperator(request : string, param : any) {
