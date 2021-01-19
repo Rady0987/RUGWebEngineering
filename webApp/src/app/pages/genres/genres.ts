@@ -1,3 +1,3 @@
 export interface GENRES {
-    genre: string;
+    name: string;
 }

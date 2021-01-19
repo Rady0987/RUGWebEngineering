@@ -37,7 +37,7 @@ export class GenresComponent implements OnInit {
       in the endpoints doc*/
       this.request += name;
     }
-    this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr= data);
+    this.TaskService.genreDataRequest(this.request).subscribe(data => {this.arr= data; console.log(data);});
     console.log(this.request);
     console.log(this.arr);
     if(this.request.includes("director")){
