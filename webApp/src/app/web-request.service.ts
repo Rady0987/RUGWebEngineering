@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { MOVIE } from './pages/movies/movie';
 import { ACTORSDIR } from './pages/actor-component/actors';
+import { GENRES } from './pages/genres/genres';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,8 @@ export class WebRequestService {
 
   getActorDir(uri : string) {
     return this.http.get<ACTORSDIR[]>(`${this.API_URL}/${uri}`);
+  }
+  getGenre(uri : string) {
+    return this.http.get<GENRES[]>(`${this.API_URL}/${uri}`);
   }
 }

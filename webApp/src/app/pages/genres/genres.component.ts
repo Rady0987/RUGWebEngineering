@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import {HttpClient} from '@angular/common/http';
+import { GENRES } from './genres';
 
 @Component({
   selector: 'app-genres',
@@ -10,24 +11,39 @@ import {HttpClient} from '@angular/common/http';
 export class GenresComponent implements OnInit {
   switchValue = false;
   request = "genres/";
-  choice = "";
-  arr: string[] = [];
+  arr: GENRES[] = []
+  
   constructor(private TaskService: TaskService, private http: HttpClient) { 
   }
 
   ngOnInit(): void {
   }
-
+  switch(switchValue : boolean) {
+    this.arr = [];
+    if(switchValue) {
+      this.request = "genres/?actor=";
+      this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr = data);
+    } else {
+      this.request = "directors/?director=";
+      this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr = data);
+    }
+    this.request = "genres/"
+  }
+  
   getName(name : string) {
     this.arr = []
-    if(name != "") 
-      this.request += `${(this.switchValue) ? ("?director=" + name) : ("?actor=" + name)}`;
-    this.TaskService.dataRequest(this.request).toPromise().then(data => {
-      console.log(data);
-      for (let key in data) 
-         if (data.hasOwnProperty(key))
-           this.arr.push(data[key]);
-    });
-    this.request = "genres/";
+    this.request = "genres/"
+    if(name != "") {
+      /*check if the parameters names (actor_name, director_name) are like 
+      in the endpoints doc*/
+      this.request += "?director="+name;
+    }
+    this.TaskService.genreDataRequest(this.request).subscribe(data => this.arr= data);
+    console.log(this.request);
+    console.log(this.arr);
+    
   }
+
+  
+  
 }

@@ -19,5 +19,7 @@ export class TaskService {
   actordirDataRequest(parameters : string) {
     return this.webReqService.getActorDir(parameters);
   }
-
+  genreDataRequest(parameters:string){
+    return this.webReqService.getGenre(parameters);
+  }
 }
