@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
+import { ACTORS } from './actors';
+import { DIRECTORS } from './directors';
 
 @Component({
   selector: 'app-actor-component',
@@ -9,41 +11,25 @@ import { TaskService } from 'src/app/task.service';
 export class ActorComponent implements OnInit {
   switchValue = false;
   request = "actors/"
-  items : any[] = [];
+  actors : ACTORS[] = [];
+  directors : DIRECTORS[] = [];
   
   constructor(private TaskService: TaskService) { }
 
   ngOnInit(): void {
-    this.TaskService.dataRequest(this.request).toPromise().then(data => {
-      console.log(data);
-
-      for (let key in data) 
-         if (data.hasOwnProperty(key))
-           this.items.push(data[key]);
-    });
-
+    this.request = "actors/";
+    this.TaskService.actorDataRequest(this.request).subscribe(data => this.actors = data);
   }
 
   switch(value : boolean) {
-    this.items = [];
+    this.actors = [];
+    this.directors = [];
     if(value) {
       this.request = "actors/";
-      this.TaskService.dataRequest(this.request).toPromise().then(data => {
-        console.log(data);
-  
-        for (let key in data) 
-           if (data.hasOwnProperty(key))
-             this.items.push(data[key]);
-      });
+      this.TaskService.actorDataRequest(this.request).subscribe(data => this.actors = data);
     } else {
       this.request = "directors/";
-      this.TaskService.dataRequest(this.request).toPromise().then(data => {
-        console.log(data);
-  
-        for (let key in data) 
-           if (data.hasOwnProperty(key))
-             this.items.push(data[key]);
-      });
+      this.TaskService.directorDataRequest(this.request).subscribe(data => this.directors = data);
     }
     this.request = "actors/"
   }

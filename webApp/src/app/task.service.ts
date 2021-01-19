@@ -15,4 +15,12 @@ export class TaskService {
   movieDataRequest(parameters: string) {
     return this.webReqService.getMovies(parameters);
   }
+
+  actorDataRequest(parameters : string) {
+    return this.webReqService.getActors(parameters);
+  }
+
+  directorDataRequest(parameters : string) {
+    return this.webReqService.getDirectors(parameters);
+  }
 }
