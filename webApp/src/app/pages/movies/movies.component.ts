@@ -21,7 +21,6 @@ export class MoviesComponent implements OnInit {
   getMoviesParam(title : string, year : any, actor : string, director: string) {
     this.items = [];
     if(actor != "" || title != "" || director != "" || year != 0) {
-      //this.request += "?";
       this.request += `${(title != "") ? ("&title=" + title) : ""}`;
       this.request = this.andOperator(this.request, actor);
       this.request += `${(actor != "") ? ("&actor=" + actor) : ""}`;

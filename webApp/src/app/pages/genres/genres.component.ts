@@ -8,8 +8,10 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./genres.component.css']
 })
 export class GenresComponent implements OnInit {
+  switchValue = false;
   request = "genres/";
-  arr: string[] = []
+  choice = "";
+  arr: string[] = [];
   constructor(private TaskService: TaskService, private http: HttpClient) { 
   }
 
@@ -18,15 +20,10 @@ export class GenresComponent implements OnInit {
 
   getName(name : string) {
     this.arr = []
-    if(name != "") {
-      /*check if the parameters names (actor_name, director_name) are like 
-      in the endpoints doc */
-      this.request += "?actor=" + name + "&director=" + name;
-      let jsonMess = this.TaskService.dataRequest(this.request);
-    }
+    if(name != "") 
+      this.request += `${(this.switchValue) ? ("?director=" + name) : ("?actor=" + name)}`;
     this.TaskService.dataRequest(this.request).toPromise().then(data => {
       console.log(data);
-
       for (let key in data) 
          if (data.hasOwnProperty(key))
            this.arr.push(data[key]);

@@ -1,3 +1,10 @@
+<div class = "checkbox-area">
+  <!-- <label nz-checkbox >Actors</label>
+  <label nz-checkbox >Directors</label> -->
+  <span class="actors">Actors</span>
+  <nz-switch [(ngModel)]="switchValue"></nz-switch>
+  <span class="directors">Directors</span>
+</div> 
 <div class="search-area">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
     <input type="text" nz-input placeholder="Input the name of the actor or director" #name/>
