@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
-import {HttpClient} from '@angular/common/http';
 import {MOVIE} from './movie';
 
 @Component({
@@ -9,7 +8,7 @@ import {MOVIE} from './movie';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  request = "movies/?details&limit=50";
+  request = "movies/?limit=50";
   items : MOVIE[];
 
   constructor(private TaskService: TaskService) { 
@@ -19,15 +18,11 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getMoviesParam(title : string, year : string, actor : string, director: string) {
+  getMoviesParam(title : string, year : string) {
     this.items = [];
-    this.request = "movies/?details&limit=50";
-    if(actor != "" || title != "" || director != "" || year != "") {
+    this.request = "movies/?limit=50";
+    if(title != "" || year != "") {
       this.request += `${(title != "") ? ("&title=" + title) : ""}`;
-      this.request = this.andOperator(this.request, actor);
-      this.request += `${(actor != "") ? ("actor=" + actor) : ""}`;
-      this.request = this.andOperator(this.request, director);
-      this.request += `${(director != "") ? ("director=" + director) : ""}`;
       this.request = this.andOperator(this.request, year);
       this.request += `${(year != "") ? ("year=" + year) : ""}`;
     }

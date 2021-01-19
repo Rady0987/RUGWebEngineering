@@ -8,10 +8,5 @@ export interface MOVIE {
     users_rating : string;
     votes : string;
     metascore : string;
-    countries : string;
-    languages : string;
-    genres: string;
-    actors : string;
     tagline : string;
-    directors : string;
 }
