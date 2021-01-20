@@ -48,7 +48,10 @@
   <tbody>
     <tr *ngFor = "let item of basicTable.data">
       <td (click)="showModal(!switchValue,item.id)">{{ item.name }}</td>
-      <nz-modal [(nzVisible)]="isVisible" nzTitle="Statistics and genres" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Statistics and genres" (nzOnOk)="handleOk()" [nzFooter]="modalFooter" >
+        <ng-template #modalFooter>
+          <button nz-button nzType="primary" (click)="handleOk()">Ok</button>
+        </ng-template>
         <p><b>List of genres: </b></p>
         <ng-container *ngFor = "let g of genres">
           {{        g.name        }}

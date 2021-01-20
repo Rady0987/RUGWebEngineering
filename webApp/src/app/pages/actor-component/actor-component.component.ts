@@ -37,7 +37,6 @@ export class ActorComponent implements OnInit {
     this.genres =[];
     this.statistics = {} as STATISTICS;
     this.isVisible = true;
-    console.log(id);
     if(value) {
       this. genre_request = "actor/" + id + "/genres";
       this.TaskService.dataRequest(this.genre_request).subscribe(data => this.genres = <GENRES[]> data);
@@ -56,11 +55,6 @@ export class ActorComponent implements OnInit {
     this.isVisible = false;
   }
 
-  handleCancel(): void {
-    console.log('Button cancel clicked!');
-    this.isVisible = false;
-  }
-
   changeSize(newSize : number) {
     this.limit = newSize;
   }
@@ -70,11 +64,9 @@ export class ActorComponent implements OnInit {
     if (value) { 
       this.request = "actors?name=" + name;
       this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
-      console.log(this.request);
     } else {
       this.request = "directors?name=" + name;
       this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
-      console.log(this.request);
     }
     this.request = "actors?name=" + name;
   }
