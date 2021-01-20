@@ -68,10 +68,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor = "let item of basicTable.data" >
+      <tr *ngFor = "let item of basicTable.data" (click) = "open(item.id)">
         <td nzAlign = "center"><img nz-image width="175px" height="175px" [nzSrc]="item.img_url"/></td>
         <td nzAlign = "center">{{ item.title }}</td>
         <td nzAlign = "center">{{ item.year }}</td>
       </tr>
     </tbody>
   </nz-table>
+
+  <nz-drawer [nzHeight] = "375" [nzClosable]="false" [nzVisible]="visible" [nzPlacement]= "placement"  nzTitle="{{movie.title}}" (nzOnClose)="close()">
+    <ng-container *nzDrawerContent class="text">
+    <div class="image">
+      <img nz-image [nzSrc]="movie.img_url"/>
+    </div>
+    <div class = "description"><b>Description:</b> {{movie.description}}</div>
+    <div class = "tagline"> <b>Tagline:</b> {{movie.tagline}} <br></div>
+    <div class = "genres"> <b>Genres:</b> {{movie.genres}} <br></div>
+    <div class = "countries"> <b>Countries:</b> {{movie.countries}} <br></div>
+    <div class = "actors"><b>Actors:</b> {{movie.actors}}<br></div>
+    <div class = "directors"> <b>Directors: </b> {{movie.directors}}<br></div>
+    <div class="ratin-year"><b>Year:</b> {{movie.year}} <br> <b> Rating: </b> {{movie.rating}} <br>
+      <b> User Rating</b> {{movie.users_rating}} <br><b> Votes: </b> {{movie.votes}}<br>
+      <b> Metascore: </b> {{movie.metascore}}<br> <b> Runtime: </b> {{movie.runtime}}
+      <br></div>
+    </ng-container>
+  </nz-drawer>

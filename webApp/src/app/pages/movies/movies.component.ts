@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NzDrawerPlacement } from 'ng-zorro-antd/drawer';
 import { TaskService } from 'src/app/task.service';
 import { MOVIE } from './movie';
+import { moviev2 } from './moviev2';
 
 @Component({
   selector: 'app-movies',
@@ -10,15 +12,19 @@ import { MOVIE } from './movie';
 export class MoviesComponent implements OnInit {
   request = "movies/?limit=50";
   items : MOVIE[];
+  movie : moviev2;
   limit : number;
   loading : boolean;
   sortByPopularity : boolean;
-
+  visible = false;
+  placement: NzDrawerPlacement = 'top';
+  
   constructor(private TaskService: TaskService) { 
     this.items = [];
     this.limit = 10;
     this.loading = true;
     this.sortByPopularity = false;
+    this.movie = {} as moviev2;
   }
 
   ngOnInit(): void {
@@ -51,7 +57,7 @@ export class MoviesComponent implements OnInit {
       this.request = this.andOperator(this.request, year);
       this.request += `${(year != "") ? ("year=" + year) : ""}`;
       this.request = this.andOperator(this.request, actorName);
-      this.request += `${(actorName != "") ? ("Actor=" + actorName) : ""}`;
+      this.request += `${(actorName != "") ? ("actor=" + actorName) : ""}`;
       this.request = this.andOperator(this.request, directorName);
       this.request += `${(directorName != "") ? ("director=" + directorName) : ""}`;
       
@@ -68,6 +74,16 @@ export class MoviesComponent implements OnInit {
     if((param != "" || param != 0) && (request.substr(request.length - 1) != "?"))
       request += "&";
     return request;
+  }
+
+  open(movieID : string): void {
+    this.request = "movie/"+movieID;
+    console.log(this.TaskService.dataRequest(this.request).subscribe(data => this.movie = <moviev2> data));
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
   }
 
   sortYear = (a: MOVIE, b: MOVIE) => a.year - b.year;

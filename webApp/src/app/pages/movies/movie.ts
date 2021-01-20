@@ -1,4 +1,5 @@
 export interface MOVIE {
+    id : string;
     img_url : string;
     title : string;
     description : string;
