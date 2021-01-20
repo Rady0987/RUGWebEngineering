@@ -63,6 +63,15 @@ The web application should now be running on `localhost:4200`
 
 ## Development Process
 
+### Technology & Architecture decisions
+
+#### REST API
+The technology that was chosen for the implementation of the REST API was the LAMP stack. PHP was used to implement the application logic, Apache's _.htaccess_ file was used to obtain REST-like endpoints to identify the resources, and a MySQL server was used to hold the resources. Python was used to convert the data from CSV to SQL.
+
+The initial motivation to choose PHP to implement the API was because the backend developer, Max, was already familiar with it. He also had access to a LAMP webserver, so that was quite useful. The decision to implement the application logic without use of a well-established framework, like Laravel, was made because Max found that this was overcomplicated for this project. Looking back, this might have not been the best decision when taking things like scalability and modularity in mind. This decision also took away the oppertunity to get familiar with the professional frameworks. This aside, implementing the backend was a lot of fun and the end result is both functional, and pretty adhering to REST principles. The lack of complicated frameworks did remove things like compilation, which decreased the time between writing code and testing it, so that was a plus. It is also very easy to quickly add new endpoints and deploy them, as long as the current model of the application allows it.
+
+#### Web Application
+
 ### Work distribution
 
 We distributed the work per milestone as follows:
