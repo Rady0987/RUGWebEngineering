@@ -12,7 +12,7 @@ export class WebRequestService {
   readonly API_URL;
   
   constructor(private http: HttpClient) {
-    this.API_URL = 'https://movies.max.ug/api'
+    this.API_URL = 'https://movies.max.ug/api2'
   }
 
   get(uri: string) {

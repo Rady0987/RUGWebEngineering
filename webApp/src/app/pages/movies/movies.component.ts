@@ -10,17 +10,27 @@ import {MOVIE} from './movie';
 export class MoviesComponent implements OnInit {
   request = "movies/?limit=50";
   items : MOVIE[];
+  limit : number;
   constructor(private TaskService: TaskService) { 
     this.items = [];
+    this.limit = 0;
   }
 
   ngOnInit(): void {
     this.getMoviesParam("", "");
   }
 
+  changeSize(newSize : number) {
+    this.limit = newSize;
+  }
+
   getMoviesParam(title : string, year : string) {
     this.items = [];
-    this.request = "movies/?limit=50";
+    if (this.limit != 0) {
+      this.request = "movies?limit=" + this.limit;
+    } else {
+      this.request = "movies"
+    }
     if(title != "" || year != "") {
       this.request += `${(title != "") ? ("&title=" + title) : ""}`;
       this.request = this.andOperator(this.request, year);
@@ -36,4 +46,7 @@ export class MoviesComponent implements OnInit {
     return request;
   }
   
+  suka() {
+    console.log("suka");
+  }
 }

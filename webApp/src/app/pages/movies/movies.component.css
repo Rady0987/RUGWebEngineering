@@ -1,5 +1,14 @@
 .find-area {
   float: right;
   width: auto;
-  padding-bottom: 1vh;
+  margin-bottom: 2%;
+}
+
+.page-size {
+  
+  float: left;
+}
+
+.movies-table {
+  height: 100%;
 }
