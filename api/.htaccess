@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^(.*)?$ apicall.php?route=$1 [E=HTTP_CONTENT_TYPE:%{HTTP:Content-Type},QSA]
