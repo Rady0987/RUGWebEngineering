@@ -24,7 +24,6 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { ActorComponent } from './pages/actor-component/actor-component.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MoviesComponent } from './pages/movies/movies.component';
-import { StatisticComponent } from './pages/statistic/statistic.component';
 import { GenresComponent } from './pages/genres/genres.component';
 
 
@@ -36,7 +35,6 @@ registerLocaleData(en);
     ActorComponent,
     HomeComponent,
     MoviesComponent,
-    StatisticComponent,
     GenresComponent,
   ],
   imports: [
