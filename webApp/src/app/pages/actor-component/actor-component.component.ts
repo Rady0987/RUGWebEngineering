@@ -28,11 +28,13 @@ export class ActorComponent implements OnInit {
     this.statistics = {} as STATISTICS;
    }
 
+  // Method that will be called as soon as the page is initialized
   ngOnInit(): void { 
     this.request = "actors?limit=" + this.limit;
     this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
   }
 
+  // Method that is used to GET request (and parse the response into an array) the genres and statistics data for actors and directors,
   showModal(value: boolean ,id: string) : void {
     this.genres =[];
     this.statistics = {} as STATISTICS;
@@ -50,15 +52,18 @@ export class ActorComponent implements OnInit {
     this. statistics_request = "actor/"+ id +"/statistics";
   }
 
+  // Method called when the ok button on modal menu is pressed
   handleOk(): void {
     console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
+  // Method used to change the number of actor/director names querried by GET request.
   changeSize(newSize : number) {
     this.limit = newSize;
   }
 
+  // Method to search actors / directors by name
   filterBy(name : string, value : boolean) { 
     this.items = [];
     if (value) { 
@@ -72,6 +77,7 @@ export class ActorComponent implements OnInit {
   }
   
 
+  // Method to display all the actors or directors, with a given limit.
   switch(value : boolean) {
     this.items = [];
     if(value) {
@@ -85,5 +91,6 @@ export class ActorComponent implements OnInit {
     this.request = "actors?limit=" + this.limit;
   }
 
+  // Method using for sorting the actors alphabetically by name
   sortName = (a: ACTORSDIR, b: ACTORSDIR) => a.name.localeCompare(b.name);
 }
