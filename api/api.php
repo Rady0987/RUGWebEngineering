@@ -55,7 +55,7 @@
 				}
 			}
 			if(!$executed) {
-				$this->makeResponse(new APIResponse(404, array()));
+				$this->makeResponse(new APIResponse(400, array()));
 			}
 		}
 	}
