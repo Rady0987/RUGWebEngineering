@@ -11,8 +11,4 @@ export class TaskService {
   dataRequest(parameters: string) {
     return this.webReqService.get(parameters);
   }
-
-  genreDataRequest(parameters:string){
-    return this.webReqService.getGenre(parameters);
-  }
 }

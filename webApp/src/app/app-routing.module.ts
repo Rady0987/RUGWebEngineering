@@ -1,7 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ActorComponent } from './pages/actor-component/actor-component.component';
-import { GenresComponent } from './pages/genres/genres.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 
@@ -14,10 +13,6 @@ const routes: Routes = [
       {
         path: 'actors',
         component: ActorComponent
-      },
-      {
-        path: 'genres',
-        component: GenresComponent
       },
       {
         path: 'home',

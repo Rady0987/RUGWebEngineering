@@ -34,3 +34,43 @@
   float: left;
   margin-top: 0.5%;
 }
+
+.image {
+  float: left;
+  width: 20%;
+}
+
+.actors{
+  float: right;
+  width: 80%;
+}
+
+.description{
+  float: right;
+  width: 80%;
+}
+
+.genres{
+  float: right;
+  width: 80%;
+}
+
+.tagline{
+  float: right;
+  width: 80%;
+}
+
+.countries{
+  float: right;
+  width: 80%;
+}
+
+.directors{
+  float: right;
+  width: 80%;
+}
+
+.ratin-year{
+  float: right;
+  width: 80%;
+}
