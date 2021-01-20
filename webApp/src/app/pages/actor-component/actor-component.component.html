@@ -40,7 +40,16 @@
   </thead>
   <tbody>
     <tr *ngFor = "let item of basicTable.data">
-      <td>{{ item.name }}</td>
+      <td (click)="showModal(!switchValue,item.id)">{{ item.name }}</td>
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Statistics and genres" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <p>List of genres:</p>
+        <ng-container *ngFor = "let g of genres">
+          <p>{{g.name}}</p>
+        </ng-container>
+        <p>Median of popularity:{{statistics.median_popularity}}</p>
+        <p>Mean of popularity:{{statistics.mean_popularity}}</p>
+        <p>Standard deviation of popularity:{{statistics.standard_deviation_popularity}}</p>
+      </nz-modal>
     </tr>
   </tbody>
 </nz-table>
