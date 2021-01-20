@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
-import {MOVIE} from './movie';
+import { MOVIE } from './movie';
 
 @Component({
   selector: 'app-movies',
@@ -70,4 +70,6 @@ export class MoviesComponent implements OnInit {
     return request;
   }
 
+  sortYear = (a: MOVIE, b: MOVIE) => a.year - b.year;
+  sortTitle = (a: MOVIE, b: MOVIE) => a.title.localeCompare(b.title);
 }
