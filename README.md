@@ -94,8 +94,7 @@ The architecture of the API is very simple. It contains of 4 files. The _.databa
 #### Web Application
 Speaking about the front-end part, we wanted to create an intuitive, user-friendly interface that will perform well with the backend components and will provide the desired requirements of the project. For this reason, the web application was developed using a well-known TypeScript framework, Angular. 
 
-Firstly, we thought of using the basic web developing languages, like HTML, CSS and JavaScript, since all of us were familiar with them. However,  
-
+Firstly, we thought of using the basic web developing languages, like HTML, CSS and JavaScript, since all of us were familiar with them. However, we decided that it will be better and easier for us to find a Framework that will fulfill our needs, this is how we found about Angular. It's diverse documentation/plentiful of tutorials online made it possible for us to learn it in a couple of days. Angular is like the skeleton of our web application and using TypeScript, CSS and HTML we added some content on it.
 
 
 ### Work distribution
