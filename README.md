@@ -1,6 +1,21 @@
 # Web Engeneering Project 2020-21 Group 49
 Thanks for checking out our repository! For the Web Engeneering course we were required to create a REST API and a web application to interact with data from [an IMDB data set](https://www.kaggle.com/gorochu/complete-imdb-movies-dataset "an IMDB data set").
 
+According to the initial project requirements, users should be provided with the following functionality: 
+1. Retrieve the information about all actors in the dataset, optionally filtered by (full) name.
+2. Obtain all available information about a specific movie identified by its unique
+IMDB URL or by its (non-unique) title.
+3. Retrieve all movies by a specific actor or director identified by name and/or in
+specific year.
+4. Get all movie genres for a specific actor or director, optionally sorted by year
+(ascending or descending).
+5. Obtain an ordering of the movies ranked by their popularity (user rating) from
+more to less popular, with the possibility to subset this order, e.g. the top
+50 movies.
+6. Obtain an ordering of movies in a specific year ranked and subsetted by popularity
+as above.
+7. Get descriptive statistics (mean, median, standard deviation) for the popularity of all movies for a particular actor with an optional filter by year.
+
 ## REST API
 Our REST API is implemented using a simple custom PHP script. By avoiding the usage of popular REST frameworks, we managed to design a backend implementation which source code takes up less than 17kB (without any size optimizations) on the server. The project is designed to run on a LAMP server.
 
