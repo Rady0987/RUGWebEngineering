@@ -1,28 +1,28 @@
 <?php
-	class CallManager {
+	class API {
 		private $server;
 		private $request;
-		private $callProcessors;
+		private $apiRoutes;
 
 		public function __construct($server, $request) {
 			$this->server = $server;
 			$this->request = $request;
-			$this->callProcessors = array();
+			$this->apiRoutes = array();
 		}
 
-		public function addCallProcessor($callProcessor) {
-			array_push($this->callProcessors, $callProcessor);
+		public function addAPIRoute($apiRoute) {
+			array_push($this->apiRoutes, $apiRoute);
 		}
 
-		private function makeResponse($callResponse) {
-			http_response_code(json_encode($callResponse->getCode()));
+		private function makeResponse($apiResponse) {
+			http_response_code(json_encode($apiResponse->getCode()));
 			header("Access-Control-Allow-Origin: *");
 			if(isset($this->server['HTTP_ACCEPT']) && explode(',', explode(';', $this->server['HTTP_ACCEPT'])[0])[0] === "text/csv") {
 				header('Content-Type: text/csv');
-				$this->outputCSV($callResponse->getData(), $this->isNestedArray($callResponse->getData()));
+				$this->outputCSV($apiResponse->getData(), $this->isNestedArray($apiResponse->getData()));
 			} else {
 				header('Content-Type: application/json');
-				echo json_encode($callResponse->getData(), JSON_UNESCAPED_UNICODE);
+				echo json_encode($apiResponse->getData(), JSON_UNESCAPED_UNICODE);
 			}
 		}
 		
@@ -48,19 +48,19 @@
 
 		public function run() {
 			$executed = false;
-			foreach($this->callProcessors as $callProcessor) {
-				if(($this->server['REQUEST_METHOD'] === $callProcessor->getMethod()) && (preg_match($callProcessor->getRoutePattern(), $this->request['route']))) {
-					$this->makeResponse($callProcessor->execute($this->request));
+			foreach($this->apiRoutes as $apiRoute) {
+				if(($this->server['REQUEST_METHOD'] === $apiRoute->getMethod()) && (preg_match($apiRoute->getRoutePattern(), $this->request['route']))) {
+					$this->makeResponse($apiRoute->execute($this->request));
 					$executed = true;
 				}
 			}
 			if(!$executed) {
-				$this->makeResponse(new CallResponse(404, array()));
+				$this->makeResponse(new APIResponse(404, array()));
 			}
 		}
 	}
 
-	class CallResponse {
+	class APIResponse {
 		private $responseCode;
 		private $responseData;
 
@@ -78,7 +78,7 @@
 		}
 	}
 
-	class CallProcessor {
+	class APIRoute {
 		private $method;
 		private $routePattern;
 		private $responseFunction;

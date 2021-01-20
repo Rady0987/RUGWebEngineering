@@ -2,13 +2,14 @@
 	//ini_set('display_errors', 'on');
 	ini_set('memory_limit','512M');
 	require("database.php");
-	require("apicallprocessor.php");
+	require("api.php");
 	$database = new Database();
-	$callManager = new CallManager($_SERVER, $_REQUEST);
+	$api = new API($_SERVER, $_REQUEST);
 	
 	//MOVIE ENDPOINTS
+	
 	# GET /movies
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^movies$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^movies$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id, title, img_url, year FROM movies");
@@ -43,13 +44,13 @@
 		$data = $database->execute($query);
 		
 		if(empty($data)) {
-			return new CallResponse(204, $data);
+			return new APIResponse(204, $data);
 		} else {
-			return new CallResponse(200, $data);
+			return new APIResponse(200, $data);
 		}
 	}));
 	# GET /movie/{movie_id}
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^movie\/\d+$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^movie\/\d+$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT title, rating, year, users_rating, votes, metascore, img_url, tagline, description, runtime, imdb_url, (SELECT GROUP_CONCAT(a.name SEPARATOR ', ') FROM movies_actors ma JOIN actors a ON a.id = ma.actor WHERE ma.movie = m.id ) AS actors, (SELECT GROUP_CONCAT(d.name SEPARATOR ', ') FROM movies_directors md JOIN directors d ON d.id = md.director WHERE md.movie = m.id ) AS directors, (SELECT GROUP_CONCAT(g.name SEPARATOR ', ') FROM movies_genres mg JOIN genres g ON g.id = mg.genre WHERE mg.movie = m.id ) AS genres, (SELECT GROUP_CONCAT(c.name SEPARATOR ', ') FROM movies_countries mc JOIN countries c ON c.id = mc.country WHERE mc.movie = m.id) AS countries, (SELECT GROUP_CONCAT(l.name SEPARATOR ', ') FROM movies_languages ml JOIN languages l ON l.id = ml.language WHERE ml.movie = m.id) AS languages FROM movies m");
@@ -57,13 +58,13 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		} else {
-			return new CallResponse(200, $data[0]);
+			return new APIResponse(200, $data[0]);
 		}
 	}));
 	# GET /movie/{movie_id}/torrents
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^movie\/\d+\/torrents$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^movie\/\d+\/torrents$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT title FROM movies");
@@ -71,7 +72,7 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		}
 		$yts_api_call = json_decode(file_get_contents("https://yts.mx/api/v2/list_movies.json?query_term=" . urlencode($data[0]['title'])), true);
 		if($yts_api_call['data']['movie_count'] > 0) {
@@ -87,12 +88,14 @@
 				}
 				array_push($result, $row);
 			}
-			return new CallResponse(200, $result);
-		} else return new CallResponse(204, array());
+			return new APIResponse(200, $result);
+		} else return new APIResponse(204, array());
 	}));
+	
 	//ACTOR ENDPOINTS
+	
 	# GET /actors
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^actors$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^actors$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id, name FROM actors");
@@ -108,27 +111,27 @@
 		
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(204, array());
+			return new APIResponse(204, array());
 		} else {
-			return new CallResponse(200, $data);
+			return new APIResponse(200, $data);
 		}
 	}));
 	# POST /actor
-	$callManager->addCallProcessor(new CallProcessor("POST", "/^actor$/", function($request) {
+	$api->addAPIRoute(new APIRoute("POST", "/^actor$/", function($request) {
 		global $database;
 		if(!isset($request['name'])) {
-			return new CallResponse(400, array());
+			return new APIResponse(400, array());
 		} else {
 			$query = new Query();
 			$query->setBaseQuery("INSERT INTO actors (`name`) VALUES (?)");
 			$query->addArgument($request['name']);
 			$data = $database->execute($query);
 			header("Location: /actor/" . $database->lastInsertId());
-			return new CallResponse(201, array());
+			return new APIResponse(201, array());
 		}
 	}));
 	# GET /actor/{actor_id}
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^actor\/\d+$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^actor\/\d+$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id, name FROM actors");
@@ -136,16 +139,16 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		} else {
-			return new CallResponse(200, $data[0]);
+			return new APIResponse(200, $data[0]);
 		}
 	}));
 	# PUT /actor/{actor_id}
-	$callManager->addCallProcessor(new CallProcessor("PUT", "/^actor\/\d+$/", function($request) {
+	$api->addAPIRoute(new APIRoute("PUT", "/^actor\/\d+$/", function($request) {
 		global $database;
 		if(!isset($request['name'])) {
-			return new CallResponse(400, array());
+			return new APIResponse(400, array());
 		} else {
 			$query = new Query();
 			$query->setBaseQuery("SELECT id FROM actors");
@@ -153,7 +156,7 @@
 			$query->addArgument(explode('/', $request['route'])[1]);
 			$data = $database->execute($query);
 			if(empty($data)) {
-				return new CallResponse(404, array());
+				return new APIResponse(404, array());
 			}
 			$query = new Query();
 			$query->setBaseQuery("UPDATE actors SET name = ?");
@@ -161,11 +164,11 @@
 			$query->addConstraint("id = ?");
 			$query->addArgument(explode('/', $request['route'])[1]);
 			$data = $database->execute($query);
-			return new CallResponse(204, array());
+			return new APIResponse(204, array());
 		}
 	}));
 	# DELETE /actor/{actor_id}
-	$callManager->addCallProcessor(new CallProcessor("DELETE", "/^actor\/\d+$/", function($request) {
+	$api->addAPIRoute(new APIRoute("DELETE", "/^actor\/\d+$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id FROM actors");
@@ -173,17 +176,17 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		}
 		$query = new Query();
 		$query->setBaseQuery("DELETE FROM actors");
 		$query->addConstraint("id = ?");
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
-		return new CallResponse(204, array());
+		return new APIResponse(204, array());
 	}));
 	# GET /actor/{actor_id}/genres
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^actor\/\d+\/genres$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^actor\/\d+\/genres$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id FROM actors");
@@ -191,16 +194,16 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		}
 		$query = new Query();
 		$query->setBaseQuery("SELECT name FROM genres WHERE id IN (SELECT genre FROM movies_genres WHERE movie IN (SELECT movie FROM movies_actors WHERE actor = ?))");
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
-		return new CallResponse(200, $data);
+		return new APIResponse(200, $data);
 	}));
 	# GET /actor/{actor_id}/statistics
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^actor\/\d+\/statistics$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^actor\/\d+\/statistics$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id FROM actors");
@@ -208,7 +211,7 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		}
 		$statistics = array();
 		$actorId = explode('/', $request['route'])[1];
@@ -234,11 +237,13 @@
 		$data = $database->execute($query);
 		$statistics["standard_deviation_popularity"] = $data[0]['mean'];
 
-		return new CallResponse(200, $statistics);
+		return new APIResponse(200, $statistics);
 	}));
+
 	//DIRECTOR ENDPOINTS
+	
 	# GET /directors
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^directors$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^directors$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id, name FROM directors");
@@ -254,13 +259,13 @@
 		
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(204, array());
+			return new APIResponse(204, array());
 		} else {
-			return new CallResponse(200, $data);
+			return new APIResponse(200, $data);
 		}
 	}));
 	# GET /director/{director_id}
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^director\/\d+$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^director\/\d+$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id, name FROM directors");
@@ -268,13 +273,13 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		} else {
-			return new CallResponse(200, $data[0]);
+			return new APIResponse(200, $data[0]);
 		}
 	}));
 	# GET /director/{director_id}/genres
-	$callManager->addCallProcessor(new CallProcessor("GET", "/^director\/\d+\/genres$/", function($request) {
+	$api->addAPIRoute(new APIRoute("GET", "/^director\/\d+\/genres$/", function($request) {
 		global $database;
 		$query = new Query();
 		$query->setBaseQuery("SELECT id FROM directors");
@@ -282,13 +287,14 @@
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
 		if(empty($data)) {
-			return new CallResponse(404, array());
+			return new APIResponse(404, array());
 		}
 		$query = new Query();
 		$query->setBaseQuery("SELECT name FROM genres WHERE id IN (SELECT genre FROM movies_genres WHERE movie IN (SELECT movie FROM movies_directors WHERE director = ?))");
 		$query->addArgument(explode('/', $request['route'])[1]);
 		$data = $database->execute($query);
-		return new CallResponse(200, $data);
+		return new APIResponse(200, $data);
 	}));
-	$callManager->run();
+	
+	$api->run();
 ?>
