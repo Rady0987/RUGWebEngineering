@@ -8,15 +8,38 @@
 </div> 
 <!-- [(ngModel)]="checked" -->
 
+<div class = "page-size">
+  <a nz-dropdown [nzDropdownMenu]="menu">
+    Change the number of requested actors or directors
+    <i nz-icon nzType="down"></i>
+  </a>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="changeSize(500); switch(!switchValue) ">500</li>
+      <li nz-menu-item (click)="changeSize(1000); switch(!switchValue) ">1000</li>
+      <li nz-menu-item (click)="changeSize(2000); switch(!switchValue) ">2000</li>
+      <li nz-menu-item (click)="changeSize(5000); switch(!switchValue) ">5000</li>
+      <li nz-menu-item (click)="changeSize(0); switch(!switchValue) ">All</li>
+    </ul>
+  </nz-dropdown-menu>
+</div>
+
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
-<nz-table>
+<nz-table class = "actors-table"
+    #basicTable
+    [nzData] = "items" 
+    [nzLoading] = "items.length == 0" 
+    [nzPageSize] = 10 [nzShowPagination] = "true" 
+    [nzShowSizeChanger] = "true"
+    [nzTotal] = items.length 
+    >
   <thead>
     <tr>
       <th>Name</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor = "let item of items">
+    <tr *ngFor = "let item of basicTable.data">
       <td>{{ item.name }}</td>
     </tr>
   </tbody>
