@@ -5,10 +5,32 @@
 }
 
 .page-size {
-  
+  margin-top: 0.5%;
   float: left;
 }
 
 .movies-table {
   height: 100%;
+}
+
+.inputArea {
+  float: center;
+}
+
+.actor {
+  margin-left: 3%;
+  float: left;
+  width: 10%;
+}
+
+.director {
+  margin-left: 3%;
+  float: left;
+  width: 10%;
+}
+
+.check-box {
+  margin-left: 3%;
+  float: left;
+  margin-top: 0.5%;
 }

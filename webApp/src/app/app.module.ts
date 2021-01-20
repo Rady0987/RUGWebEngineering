@@ -19,6 +19,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 import { ActorComponent } from './pages/actor-component/actor-component.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -52,7 +53,8 @@ registerLocaleData(en);
     NzButtonModule,
     NzDropDownModule,
     NzCheckboxModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzImageModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

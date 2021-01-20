@@ -1,5 +1,5 @@
 export interface MOVIE {
-    image : string;
+    img_url : string;
     title : string;
     description : string;
     runtime : string;
