@@ -66,7 +66,6 @@ export class MoviesComponent implements OnInit {
         this.request += "orderByPopularity=asc"; 
       }
     }
-    console.log(this.request);
     console.log(this.TaskService.dataRequest(this.request).subscribe(data => {if(data == null) {this.items = []; this.loading = false} else {this.items = <MOVIE[]> data}}));
   }
 
