@@ -99,15 +99,7 @@ Firstly, we thought of using the basic web developing languages, like HTML, CSS 
 
 ### Work distribution
 
-We distributed the work per milestone as follows:
-Constantin Cainarean - Created the UI(Actors and Directors, Movies pages), did the whole Movies Pages(Front), helped with the report and with the documentation.
-Radu Rusu - Did the connection with the backend with the frontend, did the sorting in the Movies and Actors and Directors Pages,  helped with the report and with the documentation.
-Denis Garabajiu - Created the Actors and Directors FrontEnd implementation, displaying the data, helped with parsing on Movies page, helped with the report and with the documentation.
-Horea Bochis - Helped with Actors and Directors FrontEnd implementation, displaying the data, helped with the report and with the documentation.
-Max Lelikakis - Max did the whole BackEnd by itself, helped with the report and with the documentation.
-
 #### M1: API Design
-
 We have designed the API together over video calls. As we continued to work on the other milestones, we altered the design. Every design iteration further adheres to the REST principles, and the requirements stated by the milestone.
 
 #### M2: Architecture, technology selection & API implementation
@@ -116,4 +108,4 @@ Max implemented the API and made decisions on it's architecture and technology. 
 
 #### M3: Web app implementation & reporting
 
-Cainarean made the decisions on the technology to be used for the web application. The implementation itself was done by Cainarean, Radu, Denis & Horea. Most of the essential components and modules have had contributions from all of them, as they alternated eachother. Max provided knowledge about the API when needed for implementation.
+Cainarean made the decisions on the technology to be used for the web application. The implementation itself was done by Cainarean, Radu, Denis & Horea. Most of the essential components and modules have had contributions from all of them, as they alternated each other. Max provided knowledge about the API when needed for implementation.
