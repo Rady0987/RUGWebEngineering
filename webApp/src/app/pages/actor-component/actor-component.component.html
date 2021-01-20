@@ -24,6 +24,17 @@
   </nz-dropdown-menu>
 </div>
 
+
+<div class="search-area">
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+    <input type="text" nz-input placeholder="Input the name of the actor or director" #name/>
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <button nz-button nzType="primary" nzSearch><i (click) = "filterBy(name.value,!switchValue)" nz-icon nzType="search"></i></button>
+  </ng-template>
+</div>
+
+
 <!-- <nz-table #basicTable [nzData]="listOfData"> -->
 <nz-table class = "actors-table"
     #basicTable
@@ -42,13 +53,13 @@
     <tr *ngFor = "let item of basicTable.data">
       <td (click)="showModal(!switchValue,item.id)">{{ item.name }}</td>
       <nz-modal [(nzVisible)]="isVisible" nzTitle="Statistics and genres" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-        <p>List of genres:</p>
+        <p><b>List of genres: </b></p>
         <ng-container *ngFor = "let g of genres">
-          <p>{{g.name}}</p>
+          {{        g.name        }}
         </ng-container>
-        <p>Median of popularity:{{statistics.median_popularity}}</p>
-        <p>Mean of popularity:{{statistics.mean_popularity}}</p>
-        <p>Standard deviation of popularity:{{statistics.standard_deviation_popularity}}</p>
+        <p><b>Median of popularity : </b> {{statistics.median_popularity}}</p>
+        <p><b>Mean of popularity : </b> {{statistics.mean_popularity}}</p>
+        <p><b>Standard deviation of popularity: </b> {{statistics.standard_deviation_popularity}}</p>
       </nz-modal>
     </tr>
   </tbody>

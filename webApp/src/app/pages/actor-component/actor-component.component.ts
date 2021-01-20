@@ -20,22 +20,32 @@ export class ActorComponent implements OnInit {
   genres: GENRES[];
   statistics: STATISTICS;
   isVisible = false;
+  
+  constructor(private TaskService: TaskService) {
+    this.items = [];
+    this.limit = 50;
+    this.genres = [];
+    this.statistics = {} as STATISTICS;
+   }
 
-  showModal(value: boolean ,id: string): void {
+  ngOnInit(): void { 
+    this.request = "actors?limit=" + this.limit;
+    this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+  }
+
+  showModal(value: boolean ,id: string) : void {
     this.genres =[];
     this.statistics = {} as STATISTICS;
     this.isVisible = true;
     console.log(id);
-    if(value){
-      this. genre_request = "actor/"+ id +"/genres";
-      this.TaskService.dataRequest(this.genre_request).subscribe(data => { this.genres = <GENRES[]> data; console.log(data);});
-      this. statistics_request = "actor/"+ id+"/statistics";
-      this.TaskService.dataRequest(this.statistics_request).subscribe(data => { this.statistics = <STATISTICS> data; console.log(data);});
-      console.log(this.genre_request, this.statistics_request);
-    }else{
-      this. genre_request = "director/"+ id +"/genres";
-      this.TaskService.dataRequest(this.genre_request).subscribe(data => { this.genres = <GENRES[]> data; console.log(data);});
-      console.log(this.genre_request, this.statistics_request);
+    if(value) {
+      this. genre_request = "actor/" + id + "/genres";
+      this.TaskService.dataRequest(this.genre_request).subscribe(data => this.genres = <GENRES[]> data);
+      this. statistics_request = "actor/" + id + "/statistics";
+      this.TaskService.dataRequest(this.statistics_request).subscribe(data => this.statistics = <STATISTICS> data);
+    } else {
+      this. genre_request = "director/" + id + "/genres";
+      this.TaskService.dataRequest(this.genre_request).subscribe(data => this.genres = <GENRES[]> data);
     }
     this. genre_request = "actor/"+ id +"/genres";
     this. statistics_request = "actor/"+ id +"/statistics";
@@ -50,22 +60,23 @@ export class ActorComponent implements OnInit {
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
-  
-  constructor(private TaskService: TaskService) {
-    this.items = [];
-    this.limit = 50;
-    this.genres = [];
-    this.statistics = {} as STATISTICS;
-   }
-
-  ngOnInit(): void { 
-    this.request = "actors?limit=" + this.limit;
-    this.TaskService.dataRequest(this.request).subscribe(data => { this.items = <ACTORSDIR[]> data; console.log(data);});
-    console.log(this.items);
-  }
 
   changeSize(newSize : number) {
     this.limit = newSize;
+  }
+
+  filterBy(name : string, value : boolean) { 
+    this.items = [];
+    if (value) { 
+      this.request = "actors?name=" + name;
+      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      console.log(this.request);
+    } else {
+      this.request = "directors?name=" + name;
+      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      console.log(this.request);
+    }
+    this.request = "actors?name=" + name;
   }
   
 
@@ -73,11 +84,11 @@ export class ActorComponent implements OnInit {
     this.items = [];
     if(value) {
       this.request = "actors?limit=" + this.limit;
-      this.TaskService.dataRequest(this.request).subscribe(data => { this.items = <ACTORSDIR[]> data; console.log(data);});
+      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
 
     } else {
       this.request = "directors?limit=" + this.limit;
-      this.TaskService.dataRequest(this.request).subscribe(data => { this.items = <ACTORSDIR[]> data; console.log(data);});
+      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
     }
     this.request = "actors?limit=" + this.limit;
   }
