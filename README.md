@@ -108,4 +108,9 @@ Max implemented the API and made decisions on it's architecture and technology. 
 
 #### M3: Web app implementation & reporting
 
-Cainarean made the decisions on the technology to be used for the web application. The implementation itself was done by Cainarean, Radu, Denis & Horea. Most of the essential components and modules have had contributions from all of them, as they alternated each other. Max provided knowledge about the API when needed for implementation.
+Constantin made the decisions on the technology to be used for the web application. The implementation itself was done by Constantin, Radu, Denis & Horea.
+Constantin did the whole Movies Pages(Front), helped with the report and with the documentation.
+Radu did the connection with the backend with the frontend, the sorting in the Movies and Actors and Directors Pages, helped with the report and with the documentation. 
+Denis created the Actors and Directors FrontEnd implementation, displaying the data, helped with parsing on Movies page, helped with the report and with the documentation.
+Horea Bochis helped with Actors and Directors FrontEnd implementation, displaying the data, helped with the report and with the documentation.
+Most of the essential components and modules have had contributions from all of them, as they alternated each other. Max provided knowledge about the API when needed for implementation.
