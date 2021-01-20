@@ -1,16 +1,22 @@
+<div class="parentDiv"> 
+  <div class = "checkbox-area">
+    <span class="actors">Actors</span>
+    <nz-switch (ngModelChange)="switch(switchValue)" [(ngModel)]="switchValue"></nz-switch>
+    <span class="directors">Directors</span>
+  </div> 
 
-<div class = "checkbox-area">
-  <!-- <label nz-checkbox >Actors</label>
-  <label nz-checkbox >Directors</label> -->
-  <span class="actors">Actors</span>
-  <nz-switch (ngModelChange)="switch(switchValue)" [(ngModel)]="switchValue"></nz-switch>
-  <span class="directors">Directors</span>
-</div> 
-<!-- [(ngModel)]="checked" -->
-
+  <div class="search-area">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input placeholder="Input the name of the actor or director" #name/>
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch><i (click) = "filterBy(name.value,!switchValue)" nz-icon nzType="search"></i></button>
+    </ng-template>
+  </div>
+</div>
 <div class = "page-size">
   <a nz-dropdown [nzDropdownMenu]="menu">
-    Change the number of requested actors or directors
+    Number of requested actors/directors
     <i nz-icon nzType="down"></i>
   </a>
   <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -22,16 +28,6 @@
       <li nz-menu-item (click)="changeSize(0); switch(!switchValue) ">All</li>
     </ul>
   </nz-dropdown-menu>
-</div>
-
-
-<div class="search-area">
-  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input placeholder="Input the name of the actor or director" #name/>
-  </nz-input-group>
-  <ng-template #suffixIconButton>
-    <button nz-button nzType="primary" nzSearch><i (click) = "filterBy(name.value,!switchValue)" nz-icon nzType="search"></i></button>
-  </ng-template>
 </div>
 
 
