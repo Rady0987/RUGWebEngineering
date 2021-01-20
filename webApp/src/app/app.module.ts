@@ -26,7 +26,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { ActorComponent } from './pages/actor-component/actor-component.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MoviesComponent } from './pages/movies/movies.component';
-import { GenresComponent } from './pages/genres/genres.component';
+
 
 
 registerLocaleData(en);
@@ -37,7 +37,7 @@ registerLocaleData(en);
     ActorComponent,
     HomeComponent,
     MoviesComponent,
-    GenresComponent,
+
   ],
   imports: [
     BrowserModule,
