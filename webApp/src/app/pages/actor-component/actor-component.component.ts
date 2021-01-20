@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
 import { GENRES } from './genres';
 import { ACTORSDIR } from './actors';
-import{STATISTICS} from './statistics';
+import{ STATISTICS } from './statistics';
 
 @Component({
   selector: 'app-actor-component',
@@ -93,4 +93,5 @@ export class ActorComponent implements OnInit {
     this.request = "actors?limit=" + this.limit;
   }
 
+  sortName = (a: ACTORSDIR, b: ACTORSDIR) => a.name.localeCompare(b.name);
 }
