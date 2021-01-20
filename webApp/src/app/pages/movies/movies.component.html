@@ -41,38 +41,37 @@
     >
     <thead>
       <tr>
-        <th>Image</th>
-        <th>
-          <div>
-            <ng-container >
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu1">Title</button>
-              <nz-dropdown-menu #menu1="nzDropdownMenu"> 
-                <div class = "title-area">
-                  <input nz-input placeholder="Find by Title" type="text" #title/>    
-                </div>
+        <th nzWidth = 33% nzAlign = "center"> Image</th>
+        
+        <th [nzSortFn] = "sortTitle" nzWidth = 33% nzAlign = "center">
+          <ng-container >
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu1">Title</button>
+            <nz-dropdown-menu #menu1="nzDropdownMenu"> 
+              <div class = "title-area">
+                <input nz-input placeholder="Find by Title" type="text" #title/>    
+              </div>
+            </nz-dropdown-menu>
+          </ng-container>
+        </th>
+
+        <th [nzSortFn] = "sortYear" nzWidth = 33% nzAlign = "center">
+          <ng-container >
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu2">Year</button>
+            <nz-dropdown-menu #menu2="nzDropdownMenu">
+              <div class = "title-area">
+                <input nz-input placeholder="Find by year" type="number" #year>
+              </div>
               </nz-dropdown-menu>
             </ng-container>
-          </div>
         </th>
-        <th>
-          <div>
-            <ng-container >
-              <button nz-button nz-dropdown [nzDropdownMenu]="menu2">Year</button>
-              <nz-dropdown-menu #menu2="nzDropdownMenu">
-                <div class = "title-area">
-                  <input nz-input placeholder="Find by year" type="number" #year>
-                </div>
-              </nz-dropdown-menu>
-            </ng-container>
-          </div>
-        </th>
+
       </tr>
     </thead>
     <tbody>
       <tr *ngFor = "let item of basicTable.data" >
-        <td><img nz-image width="175px" height="175px" [nzSrc]="item.img_url"/></td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.year }}</td>
+        <td nzAlign = "center"><img nz-image width="175px" height="175px" [nzSrc]="item.img_url"/></td>
+        <td nzAlign = "center">{{ item.title }}</td>
+        <td nzAlign = "center">{{ item.year }}</td>
       </tr>
     </tbody>
   </nz-table>

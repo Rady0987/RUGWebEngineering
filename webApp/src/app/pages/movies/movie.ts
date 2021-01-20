@@ -4,7 +4,7 @@ export interface MOVIE {
     description : string;
     runtime : string;
     rating : string;
-    year : string;
+    year : number;
     users_rating : string;
     votes : string;
     metascore : string;
