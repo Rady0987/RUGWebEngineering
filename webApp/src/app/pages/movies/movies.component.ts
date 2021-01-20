@@ -31,10 +31,12 @@ export class MoviesComponent implements OnInit {
     this.getMoviesParam("", "", "", "");
   }
 
+  // Method used to change the number of movies querried by GET request.
   changeSize(newSize : number) {
     this.limit = newSize;
   }
 
+  // Method used to GET request the movies, with some querry parameters (as title, year, actor name, director name), and parse the JSON response into array.
   getMoviesParam(title : string, year : string, actorName : string, directorName : string) {
     this.loading = true;
     this.items = [];
@@ -69,22 +71,26 @@ export class MoviesComponent implements OnInit {
     console.log(this.TaskService.dataRequest(this.request).subscribe(data => {if(data == null) {this.items = []; this.loading = false} else {this.items = <MOVIE[]> data}}));
   }
 
+  // Method to add the ampersand in the URI where it is needed.
   andOperator(request : string, param : any) {
     if((param != "" || param != 0) && (request.substr(request.length - 1) != "?"))
       request += "&";
     return request;
   }
 
+  // Method to open the upper panel when clicked on a movie.
   open(movieID : string): void {
     this.request = "movie/"+movieID;
     console.log(this.TaskService.dataRequest(this.request).subscribe(data => this.movie = <moviev2> data));
     this.visible = true;
   }
 
+  // Method to close the panel.
   close(): void {
     this.visible = false;
   }
 
+  // Methods to sort the data
   sortYear = (a: MOVIE, b: MOVIE) => a.year - b.year;
   sortTitle = (a: MOVIE, b: MOVIE) => a.title.localeCompare(b.title);
 }
