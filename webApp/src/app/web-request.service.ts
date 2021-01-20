@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { MOVIE } from './pages/movies/movie';
-import { ACTORSDIR } from './pages/actor-component/actors';
 
 
 @Injectable({

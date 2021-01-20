@@ -22,6 +22,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 import { ActorComponent } from './pages/actor-component/actor-component.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -56,7 +57,8 @@ registerLocaleData(en);
     NzSwitchModule,
     NzImageModule,
     NzDrawerModule,
-    NzSpaceModule
+    NzSpaceModule,
+    NzModalModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
