@@ -81,12 +81,21 @@ export class ActorComponent implements OnInit {
   switch(value : boolean) {
     this.items = [];
     if(value) {
-      this.request = "actors?limit=" + this.limit;
-      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
-
+      if (this.limit != 0) {
+        this.request = "actors?limit=" + this.limit;
+        this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      } else {
+        this.request = "actors"
+        this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      }
     } else {
-      this.request = "directors?limit=" + this.limit;
-      this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      if (this.limit != 0) {
+        this.request = "directorslimit=" + this.limit;
+        this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      } else {
+        this.request = "directors"
+        this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
+      }
     }
     this.request = "actors?limit=" + this.limit;
   }
