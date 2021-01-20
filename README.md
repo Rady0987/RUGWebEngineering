@@ -88,6 +88,11 @@ The initial motivation to choose PHP to implement the API was because the backen
 The architecture of the API is very simple. It contains of 4 files. The _.database_ file implements basic database functions that are used by the application to interact with the stored resources. This is also where the database credentials reside. The _.api.php_ is home to 3 classes. The **API** class is used to decide which route should handle the request and makes sure the correct response is returned to the client. The **APIRoute** class takes care of the processing of calls to a specific route. All route/request combinations have their own **APIRoute** object which takes care of the logic. The **APIResponse** class is used as a response which can be returned to the client. It holds the HTTP status code and the resource to be returned. The **API** class takes care of providing the correct resource representation, by server-driven content negotiation. The _routes.php_ file is where the actual API is implemented using the classes discussed above. Lastly, the _.htaccess_ file routes requests to the _routes.php_ file, so our API can have REST-like endpoints for it's resources.
 
 #### Web Application
+Speaking about the front-end part, we wanted to create an intuitive, user-friendly interface that will perform well with the backend components and will provide the desired requirements of the project. For this reason, the web application was developed using a well-known TypeScript framework, Angular. 
+
+Firstly, we thought of using the basic web developing languages, like HTML, CSS and JavaScript, since all of us were familiar with them. However,  
+
+
 
 ### Work distribution
 
