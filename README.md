@@ -20,6 +20,19 @@ Your API instance is now up and running!
 ### Documentation
 The complete documentation on the API can be found [here](api_documentation.md "here").
 
+### Generating the dataset
+If the IMDB dataset gets updated, one might want to update the API database with the new resources. We have included a script that converts the CSV dataset into an SQL file.
+
+Requirements:
+- Python 3
+
+1. Download the [IMDB dataset](https://www.kaggle.com/gorochu/complete-imdb-movies-dataset "IMDB dataset") in CSV format as _movie.csv_ and make sure it's located in the same folder as _imdb_dataset_csv_to_sql.py_.
+2. Run the conversion script:
+```bash
+$ python3 imdb_dataset_csv_to_sql.py
+```
+
+The script has now updated the _dataset.sql_ file, and you can import it into your SQL database. When importing the SQL file, all tables will be truncated before adding new records.
 ## Web Application
 Our web application has been implemented using the Angular framework.
 
@@ -47,3 +60,21 @@ $ ng s -o
 ```
 
 The web application should now be running on `localhost:4200`
+
+## Development Process
+
+### Work distribution
+
+We distributed the work per milestone as follows:
+
+#### M1: API Design
+
+We have designed the API together over video calls. As we continued to work on the other milestones, we altered the design. Every design iteration further adheres to the REST principles, and the requirements stated by the milestone.
+
+#### M2: Architecture, technology selection & API implementation
+
+Max implemented the API and made decisions on it's architecture and technology. As the API design changed, the implementation was altered.
+
+#### M3: Web app implementation & reporting
+
+Cainarean made the decisions on the technology to be used for the web application. The implementation itself was done by Cainarean, Radu, Denis & Horea. Most of the essential components and modules have had contributions from all of them, as they alternated eachother. Max provided knowledge about the API when needed for implementation.
