@@ -90,7 +90,7 @@ export class ActorComponent implements OnInit {
       }
     } else {
       if (this.limit != 0) {
-        this.request = "directorslimit=" + this.limit;
+        this.request = "directors?limit=" + this.limit;
         this.TaskService.dataRequest(this.request).subscribe(data => this.items = <ACTORSDIR[]> data);
       } else {
         this.request = "directors"
