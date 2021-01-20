@@ -22,7 +22,7 @@ paths:
         required: false
         schema:
           type: string
-      - name: Actor
+      - name: actor
         in: query
         description: The name of an actor in the movie
         required: false

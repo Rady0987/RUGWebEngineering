@@ -15,7 +15,7 @@ Retrieve movies
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
 | title | query | The title of the movie | No | string |
-| Actor | query | The name of an actor in the movie | No | string |
+| actor | query | The name of an actor in the movie | No | string |
 | director | query | The name of a director in the movie | No | string |
 | year | query | The release year of the movie | No | string |
 | orderByPopularity | query | When this parameter is passed, the API will order the results by the popularity of the movies | No | string |
