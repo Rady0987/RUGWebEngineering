@@ -80,6 +80,10 @@ The web application should now be running on `localhost:4200`
 
 ### Technology & Architecture decisions
 
+For the FrontEnd we chose Angular framework, TypeScript (which is basically the same as JS), html and css. We chose this pack of tools: TypeScript because it was really easy to learn and it is really fast, Angular was chosen because it is a very big library with a lot of pre-built tools that we could use. Also, Angular is famous four it's great documentation and fast development of the product.
+Architecture of our program:
+Angular framework works like a ship, it can place containers onto eachother, remove them and also if a contrainer fails to load, it won't affect other pages.
+Also angular has a great built-in HTTP Client, which made the connection with the BackEnd really simple. We communicate to our server through http request and get JSON data, we parse that data and dispay it on the screen.
 #### REST API
 The technology that was chosen for the implementation of the REST API was the LAMP stack. PHP was used to implement the application logic, Apache's _.htaccess_ file was used to obtain REST-like endpoints to identify the resources, and a MySQL server was used to hold the resources. Python was used to convert the data from CSV to SQL.
 
@@ -97,6 +101,11 @@ Firstly, we thought of using the basic web developing languages, like HTML, CSS 
 ### Work distribution
 
 We distributed the work per milestone as follows:
+Constantin Cainarean - Created the UI(Actors and Directors, Movies pages), did the whole Movies Pages(Front), helped with the report and with the documentation.
+Radu Rusu - Did the connection with the backend with the frontend, did the sorting in the Movies and Actors and Directors Pages,  helped with the report and with the documentation.
+Denis Garabajiu - Created the Actors and Directors FrontEnd implementation, displaying the data, helped with parsing on Movies page, helped with the report and with the documentation.
+Horea Bochis - Helped with Actors and Directors FrontEnd implementation, displaying the data, helped with the report and with the documentation.
+Max Lelikakis - Max did the whole BackEnd by itself, helped with the report and with the documentation.
 
 #### M1: API Design
 
