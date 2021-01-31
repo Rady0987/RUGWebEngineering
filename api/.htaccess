@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^(.*)/(.*)?$ apicall.php?API_ROUTE=$1&API_VAR=$2 [E=HTTP_CONTENT_TYPE:%{HTTP:Content-Type},QSA]
+RewriteRule ^(.*)?$ routes.php?route=$1 [E=HTTP_CONTENT_TYPE:%{HTTP:Content-Type},QSA]

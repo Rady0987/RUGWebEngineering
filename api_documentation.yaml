@@ -1,0 +1,511 @@
+openapi: 3.0.1
+info:
+  title: REST API for IMDB dataset
+  description: 'A simple REST api to interact with resources from a IMDB data set from kaggle.'
+  version: 1.0.0
+servers:
+- url: https://movies.max.ug/api/
+tags:
+- name: movies
+- name: actors
+- name: directors
+paths:
+  /movies:
+    get:
+      tags:
+      - movies
+      summary: Retrieve movies
+      parameters:
+      - name: title
+        in: query
+        description: The title of the movie
+        required: false
+        schema:
+          type: string
+      - name: actor
+        in: query
+        description: The name of an actor in the movie
+        required: false
+        schema:
+          type: string
+      - name: director
+        in: query
+        description: The name of a director in the movie
+        required: false
+        schema:
+          type: string
+      - name: year
+        in: query
+        description: The release year of the movie
+        required: false
+        schema:
+          type: string
+      - name: orderByPopularity
+        in: query
+        description: When this parameter is passed, the API will order the results by the popularity of the movies
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: limit
+        in: query
+        description: When this parameter is passed, the API will limit the amount of results
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        204:
+          description: No movies found
+          content: {}
+  /movie/{movie_id}:
+    get:
+      tags:
+      - movies
+      summary: Retrieve information on a specific movie
+      parameters:
+      - name: movie_id
+        in: path
+        description: The imdb URL ID of the movie
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieInfo'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovieInfo'
+        404:
+          description: Movie not found
+          content: {}
+  /actors:
+    get:
+        tags:
+        - actors
+        summary: Retrieve all actors
+        parameters:
+        - name: name
+          in: query
+          description: The actor's name
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit results
+          schema:
+            type: integer
+        responses:
+          200:
+            description: Successful operation
+            content:
+              text/csv:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Director'
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Director'
+          204:
+            description: No directors found
+            content: {}
+            
+  /actor:
+    post:
+        tags:
+        - actors
+        summary: Create a new actor
+        parameters:
+        - name: name
+          in: query
+          description: The name of the actor to create
+          required: true
+          schema:
+            type: string
+        responses:
+          201:
+            description: Actor has been created successfully 
+            content: {}
+  /actor/{actor_id}:
+    get:
+      tags:
+      - actors
+      summary: Retrieve actor
+      parameters:
+      - name: actor_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Actor'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Actor'
+        404:
+          description: No actors found
+          content: {}
+    put:
+      tags:
+      - actors
+      summary: Update the name of an actor
+      parameters:
+      - name: actor_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: name
+        in: query
+        description: New name
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Actor has been updated successfully 
+          content: {}
+        400:
+          description: Malformed request
+          content: {}
+    delete:
+      tags:
+      - actors
+      summary: Delete an actor
+      parameters:
+      - name: actor_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Actor has been deleted successfully 
+          content: {}
+        404:
+          description: Actor not found
+          content: {}
+  /actor/{actor_id}/genres:
+    get:
+      tags:
+      - actors
+      summary: Retrieve genres
+      parameters:
+      - name: actor_id
+        in: path
+        description: The name of an actor
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: string
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        204:
+          description: No genres found
+          content: {}
+  /directors:
+    get:
+      tags:
+      - directors
+      summary: Retrieve directors
+      parameters:
+      - name: name
+        in: query
+        description: The name of the director
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Limit results
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: integer
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Director'
+        204:
+          description: No directors found
+          content: {}
+  /director/{director_id}:
+    get:
+      tags:
+      - directors
+      summary: Retrieve directors
+      parameters:
+      - name: director_id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Director'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Director'
+        404:
+          description: Director not found
+          content: {}
+  /director/{director_id}/genres:
+    get:
+      tags:
+      - directors
+      summary: Retrieve genres
+      parameters:
+      - name: director_id
+        in: path
+        description: The name of an actor
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  type: string
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        204:
+          description: No genres found
+          content: {}
+  /actor/{actor_id}/statistics:
+    get:
+      tags:
+      - actors
+      summary: Retrieve statistics for a specific actor
+      parameters:
+      - name: actor_id
+        in: path
+        description: The name of the actor
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/ActorStatistics'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActorStatistics'
+        404:
+          description: Actor not found
+          content: {}
+  /movie/{movie_id}/torrents:
+    get:
+      tags:
+      - movies
+      summary: Retrieve torrents for a specific movie
+      parameters:
+      - name: movie_id
+        in: path
+        description: The imdb URL ID of the movie
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Torrent'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Torrent'
+        204:
+          description: No torrents found
+          content: {}
+        404:
+          description: Movie not found
+          content: {}
+components:
+  schemas:
+    Torrent:
+      type: object
+      properties:
+        quality:
+          type: string
+          description: The quality of the torrent
+        url:
+          type: string
+          description: The URL of the torrent file
+        magnet_url:
+          type: string
+          description: The magnet link of the torrent
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        title:
+          type: string
+          description: Movie title
+        image:
+          type: string
+          description: Image URL
+        year:
+          type: integer
+          description: Release year
+    MovieInfo:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the movie
+        rating:
+          type: string
+          description: The rating of the movie
+        year:
+          type: integer
+          description: The release year of the movie
+        users_rating:
+          type: number
+          description: The users rating of the movie
+        votes:
+          type: integer
+          description: The amount of votes for the movie
+        metascore:
+          type: integer
+          description: The metascore of the movie
+        img_url:
+          type: string
+          description: The image URL of the cover of the movie
+        tagline:
+          type: string
+          description: The tagline of the movie
+        description:
+          type: string
+          description: The description of the movie
+        runtime:
+          type: integer
+          description: The of runtime the movie in minutes
+        imdb_url:
+          type: string
+          description: The IMDB url of the movie
+        actors:
+          type: string
+          description: The actors of the movie
+        directors:
+          type: string
+          description: The directors of the movie
+        genres:
+          type: string
+          description: The genres of the movie
+        countries:
+          type: string
+          description: The countries of the movie
+        languages:
+          type: string
+          description: The languages of the movie
+    Actor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        name:
+          type: string
+          description: Name
+    Director:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID
+        name:
+          type: string
+          description: Name
+    ActorStatistics:
+      type: object
+      properties:
+        mean_popularity:
+          type: number
+          description: The mean of the popularity of the actor's movies
+        median_popularity:
+          type: number
+          description: The median of the popularity of the actor's movies
+        standard_deviation_popularity:
+          type: number
+          description: The standard deviation of the popularity of the actor's movies
+    Genre:
+      type: string
+      description: A movie genre

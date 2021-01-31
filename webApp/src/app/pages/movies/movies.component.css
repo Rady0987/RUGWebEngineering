@@ -1,5 +1,76 @@
 .find-area {
   float: right;
   width: auto;
-  padding-bottom: 1vh;
+  margin-bottom: 2%;
+}
+
+.page-size {
+  margin-top: 0.5%;
+  float: left;
+}
+
+.movies-table {
+  height: 100%;
+}
+
+.inputArea {
+  float: center;
+}
+
+.actor {
+  margin-left: 3%;
+  float: left;
+  width: 10%;
+}
+
+.director {
+  margin-left: 3%;
+  float: left;
+  width: 10%;
+}
+
+.check-box {
+  margin-left: 3%;
+  float: left;
+  margin-top: 0.5%;
+}
+
+.image {
+  float: left;
+  width: 20%;
+}
+
+.actors{
+  float: right;
+  width: 80%;
+}
+
+.description{
+  float: right;
+  width: 80%;
+}
+
+.genres{
+  float: right;
+  width: 80%;
+}
+
+.tagline{
+  float: right;
+  width: 80%;
+}
+
+.countries{
+  float: right;
+  width: 80%;
+}
+
+.directors{
+  float: right;
+  width: 80%;
+}
+
+.ratin-year{
+  float: right;
+  width: 80%;
 }

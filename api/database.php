@@ -1,9 +1,9 @@
 <?php
     class Database {
         private const HOST = "localhost";
-        private const DATABASE = "imdbapi";
-        private const USERNAME = "imdbapi";
-        private const PASSWORD = "imdbapi";
+        private const DATABASE = "database_name";
+        private const USERNAME = "database_user_username";
+        private const PASSWORD = "database_user_password";
 
         private $pdo;
 
@@ -16,6 +16,10 @@
             $q->execute($query->getArguments());
             return $q->fetchAll(PDO::FETCH_ASSOC);
         }
+        
+        public function lastInsertId() {
+			return $this->pdo->lastInsertId();
+		}
     }
 
     class Query {
